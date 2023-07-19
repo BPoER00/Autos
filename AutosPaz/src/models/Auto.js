@@ -14,6 +14,10 @@ const autoSchema = new Schema(
         type: Schema.Types.ObjectId,
       },
     ],
+    placa: {
+      type: String,
+      required: true,
+    },
     year: {
       type: String,
       required: true,
