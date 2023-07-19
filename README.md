@@ -1,0 +1,4 @@
+- Bryan Emanuel Paz Ramirez
+- 1190-19-3929
+- UMG
+- Semestre X
