@@ -1,6 +1,6 @@
 import { Router } from "express";
 import * as marcaController from "../controllers/marca.controller";
-import { authjwt, verifySignup } from "../middlewares/index";
+import { authjwt, verifyMarca } from "../middlewares/index";
 
 const router = Router();
 
@@ -21,7 +21,7 @@ router.post(
   [
     authjwt.verifyToken,
     authjwt.isModerator,
-    verifySignup.checkDuplicateNameModelo,
+    verifyMarca.checkDuplicateNameMarca,
   ],
   marcaController.postMarca
 );
@@ -31,7 +31,7 @@ router.put(
   [
     authjwt.verifyToken,
     authjwt.isModerator,
-    verifySignup.checkDuplicateNameModelo,
+    verifyMarca.checkDuplicateNameMarca,
   ],
   marcaController.putMarca
 );

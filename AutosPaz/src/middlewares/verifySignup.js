@@ -1,6 +1,5 @@
 import Rol from "../models/Rol";
 import User from "../models/User";
-import Modelo from "../models/Modelo";
 
 export const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   const user = await User.findOne({ username: req.body.username });
