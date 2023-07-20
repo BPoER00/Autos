@@ -44,7 +44,7 @@ export const checkModeloExisted = async (req, res, next) => {
     const validation = [];
 
     for (let i = 0; i < modeloObtenidos.length; i++) {
-      const resultado = await Marca.findOne({ name: modeloObtenidos[i] });
+      const resultado = await Modelo.findOne({ name: modeloObtenidos[i] });
       if (resultado === null) {
         validation.push(`Modelo ${modeloObtenidos[i]} no existe`);
       }

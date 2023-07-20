@@ -35,3 +35,5 @@ router.put(
   ],
   modeloController.putModelo
 );
+
+export default router;

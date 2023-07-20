@@ -25,7 +25,7 @@ router.post(
     verifyAuto.checkMarcaExisted,
     verifyAuto.checkModeloExisted,
   ],
-  userController.postAuto
+  autoController.postAuto
 );
 
 router.put(
@@ -37,17 +37,19 @@ router.put(
     verifyAuto.checkMarcaExisted,
     verifyAuto.checkModeloExisted,
   ],
-  userController.putAuto
+  autoController.putAuto
 );
 
 router.put(
   "/:id",
   [authjwt.verifyToken, authjwt.isAdmin],
-  userController.putAutoBuyplaca
+  autoController.putAutoBuyplaca
 );
 
 router.delete(
   "/:id",
   [authjwt.verifyToken, authjwt.isAdmin],
-  userController.deleteAutoPlaca
+  autoController.deleteAutoPlaca
 );
+
+export default router;

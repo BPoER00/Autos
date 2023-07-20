@@ -35,3 +35,5 @@ router.put(
   ],
   marcaController.putMarca
 );
+
+export default router;

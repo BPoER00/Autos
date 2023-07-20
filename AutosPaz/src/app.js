@@ -44,7 +44,7 @@ app.use("/api/auth", authRouter);
 
 app.use("/api/users", userRouter);
 
-app.use("/api/auto", authRouter);
+app.use("/api/auto", autoRouter);
 
 app.use("/api/marca", marcaRouter);
 
