@@ -1,6 +1,8 @@
 import Auto from "../models/Auto";
 import Marca from "../models/Marca";
 import Modelo from "../models/Modelo";
+import Gasto from "../models/Gasto";
+import GastosDetalle from "../models/GastosDetalle";
 
 export const getAuto = async (req, res) => {
   await Auto.find()
@@ -37,30 +39,50 @@ export const getAutoPlaca = async (req, res) => {
 };
 
 export const postAuto = async (req, res) => {
-  const { marca, modelo, placa, year } = req.body;
+  const { marca, modelo, placa, year, price } = req.body;
 
-  const marcaNew = Marca({
+  const autoNew = Auto({
     placa,
     year,
   });
 
+  const gastoNew = Gasto({
+    descripcion: "Descripcion Del Los Gastos Ingresos y Egresos Del Auto",
+  });
+
+  const gastoDetalleNew = GastosDetalle({
+    descripcion: "Total del costo del auto",
+    precio: price,
+    status: 2,
+  });
+
   if (marca) {
-    const marcaFound = await Marca.find({ marca: marca });
-    marcaNew.marca = marcaFound.map((m) => m._id);
+    const marcaFound = await Marca.findOne({ name: { $in: marca } });
+    autoNew.marca = marcaFound._id;
   }
 
   if (modelo) {
-    const modeloFound = await Modelo.find({ modelo: modelo });
-    marcaNew.modelo = modeloFound.map((m) => m._id);
+    const modeloFound = await Modelo.findOne({ name: { $in: modelo } });
+    autoNew.modelo = modeloFound._id;
   }
 
-  await marcaNew
-    .save()
-    .then((data) => {
-      res.status(201).json({
-        data: data,
-        message: "Dato Creado Correctamente",
-      });
+  console.log(autoNew);
+
+  new Promise(async (resolve, reject) => {
+    try {
+      const autoNewData = await autoNew.save();
+      gastoNew.auto = autoNewData._id;
+      const gastoNewData = await gastoNew.save();
+      gastoDetalleNew.gasto = gastoNewData._id;
+      await gastoDetalleNew.save();
+
+      resolve();
+    } catch (e) {
+      reject(e);
+    }
+  })
+    .then(() => {
+      res.status(204).send();
     })
     .catch((error) => {
       res.status(500).json({

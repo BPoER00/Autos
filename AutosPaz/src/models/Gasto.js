@@ -12,9 +12,6 @@ const gastoSchema = new Schema(
       type: String,
       required: true,
     },
-    total: {
-      type: Number,
-    },
   },
   {
     versionKey: false,

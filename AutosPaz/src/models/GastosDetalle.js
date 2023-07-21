@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 
 const gastoDetalleSchema = new Schema(
   {
-    auto: [
+    gasto: [
       {
         ref: "Gasto",
         type: Schema.Types.ObjectId,
@@ -17,7 +17,7 @@ const gastoDetalleSchema = new Schema(
       default: false,
     },
     status: {
-      type: Number,
+      type: Number, //1 ingresos, 2 gastos
       required: true,
     },
   },

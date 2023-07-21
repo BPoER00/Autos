@@ -6,8 +6,8 @@ export const checkDuplicateUsernameOrEmail = async (req, res, next) => {
   const email = await User.findOne({ email: req.body.email });
   const validation = [];
 
-  if (user) validation.push(`El username: ${req.body.username} ya esta en uso`);
-  if (email) validation.push(`El email: ${req.body.email} ya esta en uso`);
+  if (!req.params.id || (user && user._id.toString() !== req.params.id)) validation.push(`El username: ${req.body.username} ya esta en uso`);
+  if (!req.params.id || (email && email._id.toString() !== req.params.id)) validation.push(`El email: ${req.body.email} ya esta en uso`);
 
   if (validation.length > 0) {
     return res.status(400).json({ message: validation });
