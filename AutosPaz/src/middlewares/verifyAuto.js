@@ -23,11 +23,9 @@ export const checkMarcaExisted = async (req, res, next) => {
     const marcaObtenidos = req.body.marca;
     const validation = [];
 
-    for (let i = 0; i < marcaObtenidos.length; i++) {
-      const resultado = await Marca.findOne({ name: marcaObtenidos[i] });
-      if (resultado === null) {
-        validation.push(`Marca ${marcaObtenidos[i]} no existe`);
-      }
+    const resultado = await Marca.findOne({ name: marcaObtenidos });
+    if (resultado === null) {
+      validation.push(`Marca ${marcaObtenidos[i]} no existe`);
     }
 
     if (validation.length > 0) {
@@ -43,12 +41,10 @@ export const checkModeloExisted = async (req, res, next) => {
     const modeloObtenidos = req.body.modelo;
     const validation = [];
 
-    for (let i = 0; i < modeloObtenidos.length; i++) {
-      const resultado = await Modelo.findOne({ name: modeloObtenidos[i] });
+    const resultado = await Modelo.findOne({ name: modeloObtenidos });
       if (resultado === null) {
         validation.push(`Modelo ${modeloObtenidos[i]} no existe`);
       }
-    }
 
     if (validation.length > 0) {
       return res.status(400).json({ message: validation });

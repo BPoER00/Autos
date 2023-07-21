@@ -9,6 +9,8 @@ import userRouter from "./routes/user.routes";
 import autoRouter from "./routes/auto.routes";
 import marcaRouter from "./routes/marca.routes";
 import modeloRouter from "./routes/modelo.routes";
+import gastoRouter from "./routes/gasto.routes";
+import gastoDetalle from "./routes/gastoDetalle.routes";
 
 //inicializamos
 const app = express();
@@ -49,5 +51,9 @@ app.use("/api/auto", autoRouter);
 app.use("/api/marca", marcaRouter);
 
 app.use("/api/modelo", modeloRouter);
+
+app.use("/api/gasto", gastoRouter);
+
+app.use("/api/gastoDetalle", gastoDetalle);
 
 export default app;
