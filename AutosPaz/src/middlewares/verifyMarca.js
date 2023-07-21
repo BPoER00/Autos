@@ -4,7 +4,7 @@ export const checkDuplicateNameMarca = async (req, res, next) => {
     const marca = await Marca.findOne({ name: req.body.name });
     const validation = [];
   
-    if (marca)
+    if (!req.params.id || (marca && marca._id.toString() !== req.params.id))
       validation.push(
         `La marca: ${req.body.name} ya existe con el id ${marca._id}`
       );
