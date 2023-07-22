@@ -1,6 +1,8 @@
 import express from "express";
 import morgan from "morgan";
 import cors from "cors";
+import cookieParser from "cookie-parser";
+
 import pkg from "../package.json";
 import { createRoles, createUser } from "./libs/initialSetup";
 
@@ -33,6 +35,7 @@ app.use(morgan("dev"));
 //recibir datos
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 //rutas
 app.get("/", (req, res) => {

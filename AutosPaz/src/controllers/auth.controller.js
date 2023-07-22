@@ -2,6 +2,7 @@ import User from "../models/User";
 import config from "../config";
 import jwt from "jsonwebtoken";
 import Rol from "../models/Rol";
+import { serialize } from "cookie";
 
 export const singUp = async (req, res) => {
   const { username, email, password, roles } = req.body;
@@ -28,7 +29,6 @@ export const singUp = async (req, res) => {
       });
 
       res.status(201).json({
-        data: token,
         message: "Dato Creado Correctamente",
       });
     })
@@ -45,7 +45,7 @@ export const singIn = async (req, res) => {
     username: req.body.username,
   }).populate("roles");
 
-  if (!userFound) res.status(400).json({ message: "user not found" });
+  if (!userFound) return res.status(400).json({ message: "user not found" });
 
   const matchPassword = await User.comparePassword(
     req.body.password,
@@ -58,6 +58,21 @@ export const singIn = async (req, res) => {
   const token = jwt.sign({ id: userFound._id }, config.SECRET, {
     expiresIn: 86400,
   });
+  
+  return res.status(200).json({
+    token: token,
+    message: "Login successful",
+  });
+};
 
-  return res.status(201).json({ token: token, message: "success" });
+export const getValidation = (req, res) => {
+  return res.status(200).json({
+    message: "Token is valid",
+  });
+};
+
+export const logOut = (req, res) => {
+  return res.status(200).json({
+    message: "Logout successful",
+  });
 };
