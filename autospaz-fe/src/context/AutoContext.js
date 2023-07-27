@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 
 const AutoContext = createContext();
 
@@ -10,7 +10,7 @@ export const useAuto = () => {
 };
 
 function AutoProvider({ children }) {
-  return <AutoContext.Provider>{children}</AutoContext.Provider>;
+  return <AutoContext.Provider value={""}>{children}</AutoContext.Provider>;
 }
 
 export default AutoProvider;

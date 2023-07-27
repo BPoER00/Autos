@@ -4,7 +4,7 @@ export const checkDuplicateNameComponente = async (req, res, next) => {
   const componente = await Componente.findOne({ name: req.body.name });
   const validation = [];
 
-  if (!req.params.id || (componente && componente._id.toString() !== req.params.id)) {
+  if (componente && componente._id.toString() !== req.params.id) {
     validation.push(`El componente: ${req.body.name} ya existe`);
   }
 

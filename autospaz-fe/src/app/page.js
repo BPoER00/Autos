@@ -1,9 +1,9 @@
-import Componente1Landing from "@/components/Componente1Landing";
+import LandingPage from "@/components/LandingPage";
 
 function page() {
   return (
     <>
-      <Componente1Landing />
+      <LandingPage />
     </>
   );
 }
