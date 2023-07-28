@@ -1,0 +1,22 @@
+import React from "react";
+import Link from "next/link";
+
+//components
+import NavBar from "./NavBar";
+import SideBar from "./SideBar";
+
+function DefaultComponent({ children }) {
+  return (
+    <div>
+      <div className="min-h-screen flex flex-col flex-auto flex-shrink-0 antialiased bg-white dark:bg-gray-700 text-black dark:text-white">
+        <NavBar />
+        <SideBar />
+        <div className="h-full ml-14 mt-14 mb-10 md:ml-64">
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default DefaultComponent;
