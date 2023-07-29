@@ -1,50 +1,21 @@
-"use client";
-import React from "react";
-import {
-  HomeIcon,
-  CurrencyDollarIcon,
-  PencilIcon,
-  ArrowLongLeftIcon,
-  ArchiveBoxIcon,
-} from "@heroicons/react/24/solid";
-import { useRouter } from "next/navigation";
-import CardPages from "./CardPages";
+import Link from "next/link";
+import { ArrowLeftCircleIcon } from "@heroicons/react/24/solid";
 
-function NavBar({ children }) {
-  const router = useRouter();
-
+function NavBar() {
   return (
-    <div className="h-screen w-full bg-white relative flex overflow-hidden">
-      <aside className="h-full w-16 flex flex-col space-y-10 items-center justify-center relative bg-gray-800 text-white">
-        <button className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-          <HomeIcon />
-        </button>
-
-        <button
-          className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white"
-          onClick={() => router.push("/Car")}
-        >
-          <PencilIcon />
-        </button>
-
-        <button
-          className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white"
-          onClick={() => router.push("/Car")}
-        >
-          <CurrencyDollarIcon />
-        </button>
-
-        <button className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-          <ArchiveBoxIcon />
-        </button>
-
-        <button className="h-10 w-10 flex items-center justify-center rounded-lg cursor-pointer hover:text-gray-800 hover:bg-white  hover:duration-300 hover:ease-linear focus:bg-white">
-          <ArrowLongLeftIcon />
-        </button>
-      </aside>
-
-      <div className="w-full h-full flex flex-col justify-between">
-        <CardPages>{children}</CardPages>
+    <div className="fixed w-full flex items-center justify-between h-14 text-white z-10">
+      <div className="flex justify-end items-center w-full h-14 bg-blue-800 dark:bg-gray-800 header-right">
+        <Link href={"/Login"}>
+          <button className="relative flex flex-row items-center h-11 focus:outline-none hover:bg-blue-800 dark:hover:bg-gray-600 text-white-600 hover:text-white-800 border-l-4 border-transparent hover:border-blue-500 dark:hover:border-gray-800 pr-6 ">
+            <span className="inline-flex justify-center items-center ml-4"></span>
+            <span className="ml-2 text-sm tracking-wide truncate">
+              <div className="flex items-end ">
+                <ArrowLeftCircleIcon className="h-6 w-6 mr-2" />
+                <span>Logout</span>
+              </div>
+            </span>
+          </button>
+        </Link>
       </div>
     </div>
   );

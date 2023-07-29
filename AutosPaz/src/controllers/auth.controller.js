@@ -47,6 +47,8 @@ export const singIn = async (req, res) => {
 
   if (!userFound) return res.status(400).json({ message: "user not found" });
 
+  console.log(userFound);
+
   const matchPassword = await User.comparePassword(
     req.body.password,
     userFound.password
@@ -58,7 +60,7 @@ export const singIn = async (req, res) => {
   const token = jwt.sign({ id: userFound._id }, config.SECRET, {
     expiresIn: 86400,
   });
-  
+
   return res.status(200).json({
     token: token,
     message: "Login successful",

@@ -6,7 +6,7 @@ export const checkDuplicatePlacaAuto = async (req, res, next) => {
   const auto = await Auto.findOne({ placa: req.body.placa });
   const validation = [];
 
-  if (!req.params.id || (auto && auto._id.toString() !== req.params.id))
+  if (auto && auto._id.toString() !== req.params.id)
     validation.push(
       `La placa: ${req.body.placa} ya existe en el auto con el id ${auto._id}`
     );

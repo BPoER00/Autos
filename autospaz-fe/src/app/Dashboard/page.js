@@ -1,11 +1,11 @@
-import NavBar from "@/components/NavBar";
-
+import DefaultComponent from "@/components/DefaultComponent";
+import InfoDashboard from "@/components/InfoDashboard";
 function page() {
   return (
     <div>
-      <NavBar>
-        home
-      </NavBar>
+      <DefaultComponent>
+        <InfoDashboard />
+      </DefaultComponent>
     </div>
   );
 }

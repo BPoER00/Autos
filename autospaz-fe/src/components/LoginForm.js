@@ -1,76 +1,109 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
 import { useLogin } from "@/context/LoginContext";
+import { useRouter } from "next/navigation";
+import { ValidateLogin } from "@/validations/Login.Validation";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { ToastContainer, toast } from "react-toastify";
+import ProgresBar from "./ProgresBar";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {
+  const router = useRouter();
+
   const { Login } = useLogin();
 
-  const [credentials, setCredentials] = useState({
-    username: "",
-    password: "",
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    setLoading(false);
+  }, []);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(ValidateLogin),
   });
 
-  const handleChange = (e) => {
-    setCredentials({
-      ...credentials,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    Login(credentials);
+  const onSubmit = async (e) => {
+    const res = await Login(e);
+    if (res.status === 200) {
+      toast.success(res.data.message);
+      router.push("/Dashboard");
+      setLoading(true);
+    } else if (res.status === 400 || res.status === 401) {
+      toast.warning(`Error al ingresar ${res.data.message}`);
+    }
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
-      <div className="relative py-3 sm:max-w-xl sm:mx-auto">
-        <div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl"></div>
-        <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
-          <div className="max-w-md mx-auto">
-            <div>
-              <h1 className="text-2xl font-semibold">Autos Paz</h1>
-            </div>
-            <form onSubmit={handleSubmit}>
-              <div className="divide-y divide-gray-200">
-                <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
-                  <div className="relative">
-                    <input
-                      id="username"
-                      name="username"
-                      type="text"
-                      placeholder="ingrese usuario..."
-                      onChange={handleChange}
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                    />
-                    <label className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
-                      Username
-                    </label>
-                  </div>
-                  <div className="relative">
-                    <input
-                      name="password"
-                      type="password"
-                      onChange={handleChange}
-                      className="peer placeholder-transparent h-10 w-full border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:borer-rose-600"
-                      placeholder="ingrese password..."
-                    />
-                    <label className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm">
-                      Password
-                    </label>
-                  </div>
-                  <div className="relative">
-                    <button type="submit" className="bg-blue-500 text-white rounded-md px-2 py-1">
-                      Ingresar
-                    </button>
-                  </div>
-                </div>
+    <>
+      {loading ? (
+        <ProgresBar />
+      ) : (
+        <div
+          className="flex h-screen w-full items-center justify-center bg-gray-900 bg-cover bg-no-repeat"
+          style={{
+            backgroundImage:
+              "url('https://c4.wallpaperflare.com/wallpaper/184/190/380/auto-minimalism-911-porsche-machine-hd-wallpaper-preview.jpg')",
+          }}
+        >
+          <ToastContainer />
+          <div className="rounded-xl bg-gray-800 bg-opacity-50 px-16 py-10 shadow-lg backdrop-blur-md max-w-sm">
+            <div className="text-white items-center">
+              <div className="mb-8 flex flex-col items-center">
+                <img
+                  src="https://www.maxi.com.mx/themes/cosmos2/img/iconos/agencias-de-autos.png"
+                  width="150"
+                />
+                <h1 className="mb-2 text-2xl">AP</h1>
+                <span className="text-gray-300">Enter Login Details</span>
               </div>
-            </form>
+              <form
+                onSubmit={handleSubmit(onSubmit)}
+                className="items-center flex flex-col"
+              >
+                <div className="mb-4 text-lg items-center">
+                  <input
+                    className="rounded-2xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+                    type="text"
+                    placeholder="Username"
+                    {...register("username")}
+                  />
+                  <span className="text-red-500 text-center">
+                    {errors.username?.message}
+                  </span>
+                </div>
+
+                <div className="mb-4 text-lg">
+                  <input
+                    className="rounded-2xl border-none bg-yellow-400 bg-opacity-50 px-6 py-2 text-center text-inherit placeholder-slate-200 shadow-lg outline-none backdrop-blur-md"
+                    type="Password"
+                    placeholder="*********"
+                    {...register("password")}
+                  />
+                  <span className="text-red-500">
+                    {errors.password?.message}
+                  </span>
+                </div>
+                <div className="mt-8 flex justify-center text-lg text-black">
+                  <button
+                    type="submit"
+                    className="rounded-3xl bg-yellow-400 bg-opacity-50 px-10 py-2 text-white shadow-xl backdrop-blur-md transition-colors duration-300 hover:bg-yellow-600"
+                  >
+                    Login
+                  </button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
+      )}
+      ;
+    </>
   );
 }
 
