@@ -34,7 +34,7 @@ function SideBar() {
             </ComponentSidebarRedirect>
           </Link>
 
-          <button type="button" onClick={() => router.push("/Autos/List")}>
+          <button type="button" onClick={() => router.push("/Autos")}>
             <ComponentSidebarRedirect>
               <div className="flex items-center justify-between">
                 <p className="inline-flex justify-center items-center mr-1">

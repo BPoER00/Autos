@@ -30,13 +30,11 @@ function LoginForm() {
 
   const onSubmit = async (e) => {
     const res = await Login(e);
-    console.log(res);
     if (res.status === 200) {
       toast.success(res.data.message);
       router.push("/Dashboard");
       setLoading(true);
     } else if (res.status === 400 || res.status === 401) {
-      console.log("entra");
       toast.warning(`Error al ingresar ${res.data.message}`);
     }
   };
