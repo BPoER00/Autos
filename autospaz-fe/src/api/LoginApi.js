@@ -6,7 +6,7 @@ const loginApi = axios.create({
   baseURL: `${config.urlAPI}/auth`,
   headers: {
     "Content-Type": "application/json",
-    "x-access-token": getCookie.data,
+    "x-access-token": getCookie(),
   },
 });
 

@@ -47,8 +47,6 @@ export const singIn = async (req, res) => {
 
   if (!userFound) return res.status(400).json({ message: "user not found" });
 
-  console.log(userFound);
-
   const matchPassword = await User.comparePassword(
     req.body.password,
     userFound.password
