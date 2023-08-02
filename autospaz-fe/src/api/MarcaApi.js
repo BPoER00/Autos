@@ -19,3 +19,13 @@ export const getMarca = async () => {
 
   return res;
 };
+
+export const getMarcaId = async (id) => {
+  const res = await MarcaApi.get(`/${id}`)
+    .then((data) => {
+      return data.data.data;
+    })
+    .catch((error) => error.response);
+
+  return res;
+};
