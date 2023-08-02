@@ -2,8 +2,7 @@ import cookie from "js-cookie";
 
 export const postCookie = (data) => {
   cookie.set("tokenResAPIAutos", data, {
-    expires: 1,
-    path: "/Login",
+    expires: 2,
     secure: true,
     sameSite: "strict",
   });
@@ -16,7 +15,6 @@ export const getCookie = () => {
 export const deleteCookie = () => {
   cookie.set("tokenResAPIAutos", null, {
     expires: 0,
-    path: "/Login",
     secure: true,
     sameSite: "strict",
   });

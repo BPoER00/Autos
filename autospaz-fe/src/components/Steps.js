@@ -1,10 +1,16 @@
 "use client";
 import { useAuto } from "@/context/AutoContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function Steps() {
-  const { changePage } = useAuto();
-  const [status, setStatus] = useState("List");
+  const { changePage, paginate } = useAuto();
+  const [status, setStatus] = useState();
+
+  useEffect(() => {
+    console.log(paginate);
+    if (paginate[0].status === "this") setStatus("List");
+    if (paginate[1].status === "this") setStatus("New");
+  }, [paginate]);
 
   const handleList = () => {
     setStatus("List");
