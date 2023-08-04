@@ -20,9 +20,18 @@ export const getAuto = async () => {
   return res;
 };
 
+export const getAutoDashboard = async () => {
+  const res = await AutoApi.get("/Dashboard")
+    .then((data) => {
+      return data.data;
+    })
+    .catch((error) => error.response);
+
+  return res;
+};
+
 export const postAuto = async (credentials) => {
-  const res = await AutoApi
-    .post("/", credentials)
+  const res = await AutoApi.post("/", credentials)
     .then((data) => {
       return data;
     })

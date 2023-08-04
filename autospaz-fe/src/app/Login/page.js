@@ -1,5 +1,5 @@
 import LoginProvider from "@/context/LoginContext";
-import LoginForm from "@/components/LoginForm";
+import LoginForm from "@/components/Login/LoginForm";
 
 function page() {
   return (

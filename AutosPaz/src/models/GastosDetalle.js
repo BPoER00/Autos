@@ -2,9 +2,9 @@ import { Schema, model } from "mongoose";
 
 const gastoDetalleSchema = new Schema(
   {
-    gasto: [
+    auto: [
       {
-        ref: "Gasto",
+        ref: "Auto",
         type: Schema.Types.ObjectId,
       },
     ],

@@ -5,6 +5,12 @@ import { authjwt, verifyAuto } from "../middlewares/index";
 const router = Router();
 
 router.get(
+  "/Dashboard",
+  [authjwt.verifyToken],
+  autoController.getAutoMarca
+);
+
+router.get(
   "/",
   [authjwt.verifyToken, authjwt.isModerator],
   autoController.getAuto
