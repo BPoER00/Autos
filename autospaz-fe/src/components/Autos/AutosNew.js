@@ -6,9 +6,8 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useAuto } from "@/context/AutoContext";
-import InputText from "./InputText";
-import InputSelect from "./InputSelect";
-import { useEffect, useState } from "react";
+import InputText from "../Inputs/InputText";
+import InputSelect from "../Inputs/InputSelect";
 
 function page() {
   const { marca, modelo, insert, changePage } = useAuto();

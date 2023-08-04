@@ -2,8 +2,8 @@ import { useAuto } from "@/context/AutoContext";
 
 //components
 import Steps from "./Steps";
-import AutosList from "@/components/AutosList";
-import AutosNew from "@/components/AutosNew";
+import AutosList from "./AutosList";
+import AutosNew from "./AutosNew";
 
 function AutosActions() {
   const { paginate } = useAuto();

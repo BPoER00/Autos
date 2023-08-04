@@ -1,9 +1,9 @@
 "use client";
-import AutosActions from "@/components/AutosActions";
-import DefaultComponent from "@/components/DefaultComponent";
+import AutosActions from "@/components/Autos/AutosActions";
+import DefaultComponent from "@/components/Globales/DefaultComponent";
 import AutoProvider from "@/context/AutoContext";
 
-function Content({ children }) {
+function Content() {
   return (
     <>
       <DefaultComponent>

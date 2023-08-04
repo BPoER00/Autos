@@ -1,5 +1,5 @@
-import DefaultComponent from "@/components/DefaultComponent";
-import InfoDashboard from "@/components/InfoDashboard";
+import DefaultComponent from "@/components/Globales/DefaultComponent";
+import InfoDashboard from "@/components/Dashboard/InfoDashboard";
 import DashboardProvider from "@/context/DashboardContext";
 
 function page() {

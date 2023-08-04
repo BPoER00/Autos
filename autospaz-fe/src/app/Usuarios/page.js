@@ -1,9 +1,15 @@
-import DefaultComponent from "@/components/DefaultComponent";
+import DefaultComponent from "@/components/Globales/DefaultComponent";
+import UsuariosActions from "@/components/Usuarios/UsuariosActions";
+import UsuariosProvider from "@/context/UsuariosContext";
 
 function page() {
   return (
-    <DefaultComponent>page</DefaultComponent>
-  )
+    <DefaultComponent>
+      <UsuariosProvider>
+        <UsuariosActions />
+      </UsuariosProvider>
+    </DefaultComponent>
+  );
 }
 
-export default page
+export default page;

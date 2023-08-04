@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { ValidateLogin } from "@/validations/Login.Validation";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ToastContainer, toast } from "react-toastify";
-import ProgresBar from "./ProgresBar";
+import ProgresBar from "../Inputs/ProgresBar";
 import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm() {

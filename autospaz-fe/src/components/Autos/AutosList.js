@@ -1,10 +1,10 @@
 "use client";
-import CardComponentsAll from "./CardComponentsAll";
+import CardComponentsAll from "../Contenedores/CardComponentsAll";
 import { useState, useEffect } from "react";
 import CardTableAutos from "./CardTableAutos";
 import { useAuto } from "@/context/AutoContext";
 
-import LoadingBar from "./LoadingBar";
+import LoadingBar from "../Inputs/LoadingBar";
 
 function page() {
   const { auto } = useAuto();
