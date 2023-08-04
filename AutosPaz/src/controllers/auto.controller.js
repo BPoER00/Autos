@@ -6,6 +6,8 @@ import GastosDetalle from "../models/GastosDetalle";
 
 export const getAuto = async (req, res) => {
   await Auto.find()
+    .populate("marca", "name")
+    .populate("modelo", "name")
     .then((data) => {
       res.status(200).json({
         data: data,
@@ -38,16 +40,50 @@ export const getAutoPlaca = async (req, res) => {
     });
 };
 
+export const getAutoMarca = async (req, res) => {
+  try {
+    const conteoAutosPorMarca = await Auto.aggregate([
+      {
+        $group: {
+          _id: '$marca', // Campo por el cual queremos agrupar (en este caso, el idMarca de Auto)
+          count: { $sum: 1 }, // Contamos la cantidad de autos en cada grupo
+        },
+      },
+      {
+        $lookup: {
+          from: 'marcas', // Nombre de la colección 'Marca'
+          localField: '_id', // Campo local en la colección 'Auto' (idMarca)
+          foreignField: '_id', // Campo en la colección 'Marca' (id)
+          as: 'marcaData', // Nombre del nuevo campo con la información de la marca
+        },
+      },
+      {
+        $addFields: {
+          marca: { $arrayElemAt: ['$marcaData.name', 0] }, // Obtenemos el primer elemento del array 'name' de 'marcaData'
+        },
+      },
+      {
+        $project: {
+          _id: 0, // Excluimos el campo _id del resultado final
+          marca: 1, // Mostramos el campo 'marca'
+          count: 1, // Mostramos el campo 'count'
+        },
+      },
+    ]);
+
+    res.json(conteoAutosPorMarca);
+  } catch (error) {
+    console.error('Error al obtener el conteo de autos por marca:', error);
+    res.status(500).json({ error: 'Error al obtener el conteo de autos por marca' });
+  }
+}
+
 export const postAuto = async (req, res) => {
   const { marca, modelo, placa, year, price } = req.body;
 
   const autoNew = Auto({
     placa,
     year,
-  });
-
-  const gastoNew = Gasto({
-    descripcion: "Descripcion Del Los Gastos Ingresos y Egresos Del Auto",
   });
 
   const gastoDetalleNew = GastosDetalle({
@@ -71,9 +107,7 @@ export const postAuto = async (req, res) => {
   new Promise(async (resolve, reject) => {
     try {
       const autoNewData = await autoNew.save();
-      gastoNew.auto = autoNewData._id;
-      const gastoNewData = await gastoNew.save();
-      gastoDetalleNew.gasto = gastoNewData._id;
+      gastoDetalleNew.gasto = autoNewData._id;
       await gastoDetalleNew.save();
 
       resolve();

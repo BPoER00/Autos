@@ -3,20 +3,20 @@ import { useForm, Controller, useController } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ValidateAuto } from "@/validations/Auto.Validation";
 import { ToastContainer, toast } from "react-toastify";
-import { useRouter } from "next/navigation";
 import "react-toastify/dist/ReactToastify.css";
 
 import { useAuto } from "@/context/AutoContext";
 import InputText from "./InputText";
 import InputSelect from "./InputSelect";
+import { useEffect, useState } from "react";
 
 function page() {
-  const router = useRouter();
   const { marca, modelo, insert, changePage } = useAuto();
 
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
+
   const {
     register,
     handleSubmit,
@@ -107,7 +107,7 @@ function page() {
                   errors={errors.costo?.message}
                 />
               </div>
-              <div className="mb-4">
+              {/* <div className="mb-4">
                 <InputText
                   label={"Imagen"}
                   name={"imagen"}
@@ -116,7 +116,7 @@ function page() {
                   register={register}
                   errors={errors.imagen?.message}
                 />
-              </div>
+              </div> */}
               <div className="mb-6 text-center">
                 <button
                   className="w-full mt-3 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"

@@ -2,6 +2,8 @@ import axios from "axios";
 import config from "@/config/config";
 import { getCookie } from "../config/cookiesConfig";
 
+const marcaCache = {};
+
 const MarcaApi = axios.create({
   baseURL: `${config.urlAPI}/marca`,
   headers: {
@@ -21,11 +23,16 @@ export const getMarca = async () => {
 };
 
 export const getMarcaId = async (id) => {
-  const res = await MarcaApi.get(`/${id}`)
-    .then((data) => {
-      return data.data.data;
-    })
-    .catch((error) => error.response);
+  try {
+    if (marcaCache[id]) {
+      console.log("Datos obtenidos de la caché.");
+      return marcaCache[id];
+    }
 
-  return res;
+    const res = await MarcaApi.get(`/${id}`);
+
+    marcaCache[id] = res;
+
+    return res;
+  } catch (e) {}
 };

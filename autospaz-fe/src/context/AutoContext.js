@@ -19,24 +19,28 @@ function AutoProvider({ children }) {
   ];
 
   const [paginate, setPaginate] = useState(defaultPaginate);
-  const [auto, setAuto] = useState({});
-  const [marca, setMarca] = useState({});
-  const [modelo, setModelo] = useState({});
+  const [marca, setMarca] = useState();
+  const [modelo, setModelo] = useState();
 
-  getAuto()
-    .then((data) => setAuto(data))
-    .catch((error) => setAuto(error));
+  const auto = async () => {
+    const auto = await getAuto()
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => error);
 
-  getMarca().then((data) =>
-    setMarca(data.map((m) => ({ value: m.name, label: m.name })))
-  );
-  getModelo().then((data) =>
-    setModelo(data.map((m) => ({ value: m.name, label: m.name })))
-  );
+    return auto;
+  };
 
-  useEffect(() => {}, [paginate]);
+  useEffect(() => {
+    getMarca().then((data) =>
+      setMarca(data.map((m) => ({ value: m.name, label: m.name })))
+    );
+    getModelo().then((data) =>
+      setModelo(data.map((m) => ({ value: m.name, label: m.name })))
+    );
+  }, []);
 
-  console.log(auto);
   const insert = async (credentials) => postAuto(credentials);
 
   const changePage = (id) => {
@@ -50,7 +54,7 @@ function AutoProvider({ children }) {
 
   return (
     <AutoContext.Provider
-      value={{ paginate, changePage, marca, modelo, insert, auto, getMarcaId }}
+      value={{ paginate, changePage, marca, modelo, insert, auto }}
     >
       {children}
     </AutoContext.Provider>
