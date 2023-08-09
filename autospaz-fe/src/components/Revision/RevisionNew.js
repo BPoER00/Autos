@@ -7,9 +7,14 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRevision } from "@/context/RevisionContext";
 import InputText from "../Inputs/InputText";
 import InputSelect from "../Inputs/InputSelect";
+import { compiler } from "../../../next.config";
 
 function RevisionNew() {
-  const { marca, modelo, insert, changePage } = useRevision();
+  const { auto, componente, insert, changePage } = useRevision();
+
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
 
   const {
     register,
@@ -40,65 +45,53 @@ function RevisionNew() {
             className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
             style={{
               backgroundImage:
-                "url('https://grandluxorhotels.com/wp-content/uploads/2017/04/IMAGEN_evento_autom%C3%B3vil-1024x683.jpg')",
+                "url('https://imgs.search.brave.com/GNvxfR-D5JNgE_zP9GjGW4ywIi27ynlGC5CWlIZigb0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdC5k/ZXBvc2l0cGhvdG9z/LmNvbS8xMDA3Mjgz/LzQ2MzUvaS82MDAv/ZGVwb3NpdHBob3Rv/c180NjM1NTQzNS1z/dG9jay1waG90by1y/ZXZpc2lvbi5qcGc')",
             }}
           ></div>
           <div className="w-full lg:w-7/12 dark:bg-gray-800 p-5 rounded-lg lg:rounded-l-none">
-            <h3 className="pt-4 text-2xl text-center">Ingreso De Autos!</h3>
+            <h3 className="pt-4 text-2xl text-center">Revision!</h3>
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="px-8 pt-6 pb-8 mb-4 dark:bg-gray-900 rounded"
             >
-              <div className="mb-4 md:flex md:justify-between">
-                <div className="mb-4 md:mr-2 md:mb-0">
-                  <InputText
-                    label={"Placa"}
-                    name={"placa"}
-                    type={"text"}
-                    placeholder={"Ingrese Placa..."}
-                    register={register}
-                    errors={errors.placa?.message}
-                  />
-                </div>
-                <div className="md:ml-2">
-                  <InputText
-                    label={"Año"}
-                    name={"year"}
-                    type={"number"}
-                    placeholder={"Ingrese Año..."}
-                    register={register}
-                    errors={errors.year?.message}
-                  />
-                </div>
-              </div>
               <div className="mb-4">
                 <InputSelect
-                  label={"Marca"}
-                  name={"marca"}
-                  options={marca}
+                  label={"Auto"}
+                  name={"auto"}
+                  options={auto}
                   control={control}
-                  placeholder={"Ingrese Marca..."}
-                  errors={errors.marca?.message}
+                  placeholder={"Ingrese auto..."}
+                  errors={errors.auto?.message}
                 />
               </div>
               <div className="mb-4">
                 <InputSelect
-                  label={"Modelo"}
-                  name={"modelo"}
-                  options={modelo}
+                  label={"Componente"}
+                  name={"componente"}
+                  options={componente}
                   control={control}
-                  placeholder={"Ingrese Modelo..."}
-                  errors={errors.modelo?.message}
+                  placeholder={"Ingrese componente..."}
+                  errors={errors.componente?.message}
                 />
               </div>
               <div className="mb-4">
                 <InputText
-                  label={"Costo"}
-                  name={"price"}
-                  type={"number"}
-                  placeholder={"Ingrese Costo..."}
+                  label={"Descripcion"}
+                  name={"descripcion"}
+                  type={"text"}
+                  placeholder={"Ingrese descripcion..."}
                   register={register}
-                  errors={errors.costo?.message}
+                  errors={errors.descripcion?.message}
+                />
+              </div>
+              <div className="mb-4">
+                <InputText
+                  label={"Estatus"}
+                  name={"status"}
+                  type={"number"}
+                  placeholder={"Ingrese estatus..."}
+                  register={register}
+                  errors={errors.status?.message}
                 />
               </div>
               <div className="mb-6 text-center">
@@ -106,7 +99,7 @@ function RevisionNew() {
                   className="w-full mt-3 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  Registrar Auto
+                  Registrar Vision
                 </button>
               </div>
               <hr className="mb-6 border-t" />

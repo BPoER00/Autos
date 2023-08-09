@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
-import { getRevisionAuto } from "@/api/RevisionApi";
+import { getRevisionAuto, postRevisionAuto } from "@/api/RevisionApi";
 import { getAuto } from "@/api/AutoApi";
 import { getComponente } from "@/api/ComponentesApi";
 
@@ -50,9 +50,12 @@ function RevisionProvider({ children }) {
     return revisiones;
   };
 
+  const insert = async (revision) => postRevisionAuto(revision);
+
+
   return (
     <RevisionContext.Provider
-      value={{ paginate, changePage, revision, auto, componente }}
+      value={{ paginate, changePage, revision, auto, componente, insert }}
     >
       {children}
     </RevisionContext.Provider>
