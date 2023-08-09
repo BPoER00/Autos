@@ -1,6 +1,8 @@
 import Auto from "../models/Auto";
 import Componente from "../models/Componente";
 import Revision from "../models/Revision";
+import Marca from "../models/Marca";
+import Modelo from "../models/Modelo";
 
 export const getRevision = async (req, res) => {
   await Revision.find()
@@ -34,6 +36,42 @@ export const getRevisionId = async (req, res) => {
         message: `Dato No Fue Obtenido Correctamente, Error: ${error.message}`,
       });
     });
+};
+
+export const getRevisionPorAuto = async (req, res) => {
+  try {
+    const revisionCountByPlaca = await Revision.aggregate([
+      {
+        $lookup: {
+          from: "autos", // Nombre de la colección "Auto"
+          localField: "auto",
+          foreignField: "_id",
+          as: "autoData",
+        },
+      },
+      {
+        $unwind: "$autoData",
+      },
+      {
+        $group: {
+          _id: "$autoData.placa",
+          cantidad: { $sum: 1 },
+        },
+      },
+      {
+        $project: {
+          placa: "$_id",
+          cantidad: 1,
+          _id: 0,
+        },
+      },
+    ]);
+
+    res.json(revisionCountByPlaca);
+  } catch (error) {
+    console.error("Error:", error);
+    res.status(500).json({ error: "Error en el servidor" });
+  }
 };
 
 export const postRevision = async (req, res) => {

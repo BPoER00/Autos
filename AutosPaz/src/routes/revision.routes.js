@@ -5,6 +5,12 @@ import { authjwt, verifyRevision } from "../middlewares/index";
 const router = Router();
 
 router.get(
+  "/revisiones",
+  [authjwt.verifyToken],
+  revisionController.getRevisionPorAuto
+);
+
+router.get(
   "/",
   [authjwt.verifyToken, authjwt.isModerator],
   revisionController.getRevision

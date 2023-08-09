@@ -1,5 +1,8 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import { getRevisionAuto } from "@/api/RevisionApi";
+import { getAuto } from "@/api/AutoApi";
+import { getComponente } from "@/api/ComponentesApi";
 
 const RevisionContext = createContext();
 
@@ -16,6 +19,8 @@ function RevisionProvider({ children }) {
   ];
 
   const [paginate, setPaginate] = useState(defaultPaginate);
+  const [auto, setAuto] = useState();
+  const [componente, setComponente] = useState();
 
   const changePage = (id) => {
     setPaginate((prevPaginate) =>
@@ -26,9 +31,28 @@ function RevisionProvider({ children }) {
     );
   };
 
+  useEffect(() => {
+    getAuto().then((data) =>
+      setAuto(data.map((m) => ({ value: m.placa, label: m.placa })))
+    );
+    getComponente().then((data) =>
+      setComponente(data.map((m) => ({ value: m._id, label: m.name })))
+    );
+  }, []);
+
+  const revision = async () => {
+    const revisiones = await getRevisionAuto()
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => error);
+
+    return revisiones;
+  };
+
   return (
     <RevisionContext.Provider
-      value={{ paginate, changePage  }}
+      value={{ paginate, changePage, revision, auto, componente }}
     >
       {children}
     </RevisionContext.Provider>
