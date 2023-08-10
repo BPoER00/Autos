@@ -1,6 +1,11 @@
+import ModelosProvider from "@/context/ModelosContext"
+import ModelosAction from "./Modelos/ModelosAction"
+
 function ModelosActions() {
   return (
-    <div>ModelosActions</div>
+    <ModelosProvider>
+      <ModelosAction />
+    </ModelosProvider>
   )
 }
 

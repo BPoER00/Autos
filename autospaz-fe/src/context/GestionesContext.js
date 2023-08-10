@@ -1,6 +1,7 @@
 "use client";
-import { createContext, useContext, useState } from "react";
-import { getDetallesGastos } from "@/api/DetalleGastosApi";
+import { createContext, useContext, useState, useEffect } from "react";
+import { getDetallesGastos, postDetallesGatos } from "@/api/DetalleGastosApi";
+import { getAuto } from "@/api/AutoApi";
 
 const GestionesContext = createContext();
 
@@ -17,6 +18,13 @@ function GestionesProvider({ children }) {
   ];
 
   const [paginate, setPaginate] = useState(defaultPaginate);
+  const [auto, setAuto] = useState();
+
+  useEffect(() => {
+    getAuto().then((data) =>
+      setAuto(data.map((m) => ({ value: m._id, label: m.placa })))
+    );
+  }, []);
 
   const gestion = async () => {
     const gestiones = await getDetallesGastos()
@@ -37,8 +45,10 @@ function GestionesProvider({ children }) {
     );
   };
 
+  const insert = async (gestiones) => postDetallesGatos(gestiones);
+
   return (
-    <GestionesContext.Provider value={{ paginate, changePage, gestion }}>
+    <GestionesContext.Provider value={{ paginate, changePage, gestion, auto, insert }}>
       {children}
     </GestionesContext.Provider>
   );

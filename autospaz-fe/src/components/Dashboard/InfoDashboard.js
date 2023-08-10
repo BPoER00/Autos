@@ -52,15 +52,18 @@ function InfoDashboard() {
         <CardInfoComponentDashboard name={"Autos"} value={countAuto} />
         <CardInfoComponentDashboard
           name={"Ganancias"}
-          value={`Q. ${sumEstado1}`}
+          moneda={"Q. "}
+          value={sumEstado1}
         />
         <CardInfoComponentDashboard
           name={"Perdidas"}
-          value={`Q. ${-sumEstado2}`}
+          moneda={"Q. "}
+          value={-sumEstado2}
         />
         <CardInfoComponentDashboard
           name={"Dinero Total"}
-          value={`Q ${total}`}
+          moneda={"Q. "}
+          value={total}
         />
       </div>
       <div className="grid grid-cols-1 lg:grid-cols-2 p-4 gap-4">

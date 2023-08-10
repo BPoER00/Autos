@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useRevision } from "@/context/RevisionContext";
 import InputText from "../Inputs/InputText";
 import InputSelect from "../Inputs/InputSelect";
-import { compiler } from "../../../next.config";
 
 function RevisionNew() {
   const { auto, componente, insert, changePage } = useRevision();
