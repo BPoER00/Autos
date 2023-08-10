@@ -107,7 +107,7 @@ export const postAuto = async (req, res) => {
   new Promise(async (resolve, reject) => {
     try {
       const autoNewData = await autoNew.save();
-      gastoDetalleNew.gasto = autoNewData._id;
+      gastoDetalleNew.auto = autoNewData._id;
       await gastoDetalleNew.save();
 
       resolve();

@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, useState } from "react";
+import { getDetallesGastos } from "@/api/DetalleGastosApi";
 
 const GestionesContext = createContext();
 
@@ -17,6 +18,16 @@ function GestionesProvider({ children }) {
 
   const [paginate, setPaginate] = useState(defaultPaginate);
 
+  const gestion = async () => {
+    const gestiones = await getDetallesGastos()
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => error);
+
+    return gestiones;
+  };
+
   const changePage = (id) => {
     setPaginate((prevPaginate) =>
       prevPaginate.map((page) => ({
@@ -27,9 +38,7 @@ function GestionesProvider({ children }) {
   };
 
   return (
-    <GestionesContext.Provider
-      value={{ paginate, changePage  }}
-    >
+    <GestionesContext.Provider value={{ paginate, changePage, gestion }}>
       {children}
     </GestionesContext.Provider>
   );

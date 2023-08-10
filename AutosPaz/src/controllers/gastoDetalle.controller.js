@@ -2,7 +2,7 @@ import Gasto from "../models/Gasto";
 import GastoDetalle from "../models/GastosDetalle";
 
 export const getGastoDetalle = async (req, res) => {
-  await GastoDetalle.find()
+  await GastoDetalle.find().populate("auto")
     .then((data) => {
       res.status(200).json({
         data: data,
