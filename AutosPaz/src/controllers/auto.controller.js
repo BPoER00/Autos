@@ -102,8 +102,6 @@ export const postAuto = async (req, res) => {
     autoNew.modelo = modeloFound._id;
   }
 
-  console.log(autoNew);
-
   new Promise(async (resolve, reject) => {
     try {
       const autoNewData = await autoNew.save();
