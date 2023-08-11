@@ -45,21 +45,21 @@ export const getAutoMarca = async (req, res) => {
     const conteoAutosPorMarca = await Auto.aggregate([
       {
         $group: {
-          _id: '$marca', // Campo por el cual queremos agrupar (en este caso, el idMarca de Auto)
+          _id: "$marca", // Campo por el cual queremos agrupar (en este caso, el idMarca de Auto)
           count: { $sum: 1 }, // Contamos la cantidad de autos en cada grupo
         },
       },
       {
         $lookup: {
-          from: 'marcas', // Nombre de la colección 'Marca'
-          localField: '_id', // Campo local en la colección 'Auto' (idMarca)
-          foreignField: '_id', // Campo en la colección 'Marca' (id)
-          as: 'marcaData', // Nombre del nuevo campo con la información de la marca
+          from: "marcas", // Nombre de la colección 'Marca'
+          localField: "_id", // Campo local en la colección 'Auto' (idMarca)
+          foreignField: "_id", // Campo en la colección 'Marca' (id)
+          as: "marcaData", // Nombre del nuevo campo con la información de la marca
         },
       },
       {
         $addFields: {
-          marca: { $arrayElemAt: ['$marcaData.name', 0] }, // Obtenemos el primer elemento del array 'name' de 'marcaData'
+          marca: { $arrayElemAt: ["$marcaData.name", 0] }, // Obtenemos el primer elemento del array 'name' de 'marcaData'
         },
       },
       {
@@ -73,10 +73,12 @@ export const getAutoMarca = async (req, res) => {
 
     res.json(conteoAutosPorMarca);
   } catch (error) {
-    console.error('Error al obtener el conteo de autos por marca:', error);
-    res.status(500).json({ error: 'Error al obtener el conteo de autos por marca' });
+    console.error("Error al obtener el conteo de autos por marca:", error);
+    res
+      .status(500)
+      .json({ error: "Error al obtener el conteo de autos por marca" });
   }
-}
+};
 
 export const postAuto = async (req, res) => {
   const { marca, modelo, placa, year, price } = req.body;
@@ -89,7 +91,7 @@ export const postAuto = async (req, res) => {
   const gastoDetalleNew = GastosDetalle({
     descripcion: "Total del costo del auto",
     precio: price,
-    status: 2,
+    status: 4,
   });
 
   if (marca) {
@@ -102,12 +104,50 @@ export const postAuto = async (req, res) => {
     autoNew.modelo = modeloFound._id;
   }
 
-  console.log(autoNew);
-
   new Promise(async (resolve, reject) => {
     try {
       const autoNewData = await autoNew.save();
       gastoDetalleNew.auto = autoNewData._id;
+      await gastoDetalleNew.save();
+
+      resolve();
+    } catch (e) {
+      reject(e);
+    }
+  })
+    .then(() => {
+      res.status(204).send();
+    })
+    .catch((error) => {
+      res.status(500).json({
+        data: null,
+        message: `Dato No Fue Creado Correctamente, Error: ${error.message}`,
+      });
+    });
+};
+
+export const putAutoVenta = async (req, res) => {
+  const { id } = req.params;
+  const { precio } = req.body;
+
+  if (!id) res.status(400).json({ message: "Error id no fue ingresado" });
+
+  const auto = await Auto.findOne({ _id: id });
+
+  if (!auto) res.status(404).json({ message: "El auto no fue encontrado" });
+
+  const gastoDetalleNew = GastosDetalle({
+    auto: auto.id,
+    descripcion: "Total venta del auto",
+    precio: precio,
+    status: 3,
+  });
+
+  new Promise(async (resolve, reject) => {
+    try {
+      auto.status_buy = true;
+
+      await Auto.findByIdAndUpdate(id, auto);
       await gastoDetalleNew.save();
 
       resolve();
@@ -148,27 +188,6 @@ export const putAuto = async (req, res) => {
   }
 
   Marca.findByIdAndUpdate(id, marcaUpdate)
-    .then(() => {
-      res.status(204);
-    })
-    .catch((e) => {
-      res.status(500).json({
-        data: false,
-        message: `Error ${e.message}`,
-      });
-    });
-};
-
-export const putAutoBuyplaca = async (req, res) => {
-  const { placa } = req.params;
-
-  if (!id) res.status(400).json({ message: "Error id no fue ingresado" });
-
-  const autoBuy = Auto.findOne({ placa: placa });
-
-  autoBuy.status_buy = true;
-
-  Marca.findByIdAndUpdate(id, autoBuy)
     .then(() => {
       res.status(204);
     })

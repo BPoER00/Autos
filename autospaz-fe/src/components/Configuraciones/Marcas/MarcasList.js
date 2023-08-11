@@ -17,7 +17,6 @@ function MarcasList() {
     setData(await marcas());
   };
 
-  console.log(data);
   const cabeceras = ["#", "Marca", "Opciones"];
   if (data.length === 0) {
     return (

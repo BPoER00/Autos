@@ -4,7 +4,7 @@ function CardTableAutos({ marca, modelo, placa, year, image }) {
 
   return (
     <div className="w-3/4 md:w-1/2 lg:w-1/3 xl:w-1/3 p-4">
-      <div className="max-w-md py-4 px-8 bg-white">
+      <div className="max-w-md py-4 px-8 bg-white rounded-md">
         <div>
           <img
             className="w-24 h-24 object-cover rounded-full border-2 border-indigo-500"

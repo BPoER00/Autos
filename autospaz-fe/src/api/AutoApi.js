@@ -41,3 +41,15 @@ export const postAuto = async (credentials) => {
 
   return res;
 };
+
+export const putVenta = async (id, datos) => {
+  const res = await AutoApi.put(`/venta/${id}`, datos)
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return res;
+};

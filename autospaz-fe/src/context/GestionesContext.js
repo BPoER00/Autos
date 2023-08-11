@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { getDetallesGastos, postDetallesGatos } from "@/api/DetalleGastosApi";
-import { getAuto } from "@/api/AutoApi";
+import { getAuto, putVenta } from "@/api/AutoApi";
 
 const GestionesContext = createContext();
 
@@ -15,6 +15,7 @@ function GestionesProvider({ children }) {
   const defaultPaginate = [
     { id: 1, name: "Listado De Gestiones", status: "this" },
     { id: 2, name: "Nueva Gestiones", status: "other" },
+    { id: 3, name: "Vender Auto", status: "other" },
   ];
 
   const [paginate, setPaginate] = useState(defaultPaginate);
@@ -47,8 +48,12 @@ function GestionesProvider({ children }) {
 
   const insert = async (gestiones) => postDetallesGatos(gestiones);
 
+  const update = async (id, data) => putVenta(id, data);
+
   return (
-    <GestionesContext.Provider value={{ paginate, changePage, gestion, auto, insert }}>
+    <GestionesContext.Provider
+      value={{ paginate, changePage, gestion, auto, insert, update }}
+    >
       {children}
     </GestionesContext.Provider>
   );

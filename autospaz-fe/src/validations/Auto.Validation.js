@@ -9,3 +9,14 @@ export const ValidateAuto = yup.object().shape({
   price: yup.number().typeError('Unicamente Acepta Numeros').required("Ingrese el Costo del vehiculo"),
 
 });
+
+export const ValidateVentaAuto = yup.object().shape({
+  id: yup.string().required("Ingrese un Auto"),
+
+  precio: yup
+    .number()
+    .typeError("Unicamente Acepta Numeros")
+    .required("Ingrese el precio para la venta"),
+
+});
+

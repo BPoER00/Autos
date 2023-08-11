@@ -73,7 +73,7 @@ function SideBar() {
             </ComponentSidebarRedirect>
           </button>
 
-          <button onClick={() => router.push("/Usuarios")}>
+          {/* <button onClick={() => router.push("/Usuarios")}>
             <ComponentSidebarRedirect>
               <div className="flex items-center justify-between">
                 <span className="inline-flex justify-center items-center mr-1">
@@ -84,7 +84,7 @@ function SideBar() {
                 </span>
               </div>
             </ComponentSidebarRedirect>
-          </button>
+          </button> */}
 
           <button onClick={() => router.push("/Configuraciones")}>
             <ComponentSidebarRedirect>

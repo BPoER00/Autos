@@ -46,7 +46,6 @@ userSchema.statics.encryptPassword = async (password) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     return hashedPassword;
   } catch (error) {
-    console.log(error);
     throw new Error(`Error al hashear el password ${error.message}`);
   }
 };
