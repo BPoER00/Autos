@@ -2,7 +2,7 @@ import cookie from "js-cookie";
 
 export const postCookie = (data) => {
   cookie.set("tokenResAPIAutos", data, {
-    expires: 2,
+    expires: 1,
     secure: true,
     sameSite: "strict",
   });
