@@ -1,15 +1,15 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ValidateRevision } from "@/validations/Revision.Validation";
+import { ValidateComponentes } from "@/validations/Componentes.Validation";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { useRevision } from "@/context/RevisionContext";
-import InputText from "../Inputs/InputText";
-import InputSelect from "../Inputs/InputSelect";
 
-function RevisionNew() {
-  const { auto, componente, insert, changePage } = useRevision();
+import { useComponentes } from "@/context/ComponentesContext";
+import InputText from "../../Inputs/InputText";
+
+function ComponentesNew() {
+  const { insert, changePage } = useComponentes();
 
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -19,14 +19,13 @@ function RevisionNew() {
     register,
     handleSubmit,
     formState: { errors },
-    control,
   } = useForm({
-    resolver: yupResolver(ValidateRevision),
+    resolver: yupResolver(ValidateComponentes),
   });
 
   const onSubmit = async (e) => {
     const res = await insert(e);
-    if (res.status === 204) {
+    if (res.status === 201) {
       toast.success("Revision Realizada Correctamente");
       await sleep(3000);
       changePage(1);
@@ -44,53 +43,33 @@ function RevisionNew() {
             className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
             style={{
               backgroundImage:
-                "url('https://imgs.search.brave.com/GNvxfR-D5JNgE_zP9GjGW4ywIi27ynlGC5CWlIZigb0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdC5k/ZXBvc2l0cGhvdG9z/LmNvbS8xMDA3Mjgz/LzQ2MzUvaS82MDAv/ZGVwb3NpdHBob3Rv/c180NjM1NTQzNS1z/dG9jay1waG90by1y/ZXZpc2lvbi5qcGc')",
+                "url('https://noticias.coches.com/wp-content/uploads/2016/02/logos-marcas-coches.jpg')",
             }}
           ></div>
           <div className="w-full lg:w-7/12 dark:bg-gray-800 p-5 rounded-lg lg:rounded-l-none">
-            <h3 className="pt-4 text-2xl text-center">Revision!</h3>
+            <h3 className="pt-4 text-2xl text-center">Marcas!</h3>
             <form
               onSubmit={handleSubmit(onSubmit)}
               className="px-8 pt-6 pb-8 mb-4 dark:bg-gray-900 rounded"
             >
               <div className="mb-4">
-                <InputSelect
-                  label={"Auto"}
-                  name={"auto"}
-                  options={auto}
-                  control={control}
-                  placeholder={"Ingrese auto..."}
-                  errors={errors.auto?.message}
-                />
-              </div>
-              <div className="mb-4">
-                <InputSelect
-                  label={"Componente"}
-                  name={"componente"}
-                  options={componente}
-                  control={control}
-                  placeholder={"Ingrese componente..."}
-                  errors={errors.componente?.message}
+                <InputText
+                  label={"Nombre"}
+                  name={"name"}
+                  type={"text"}
+                  placeholder={"Ingrese nombre..."}
+                  register={register}
+                  errors={errors.name?.message}
                 />
               </div>
               <div className="mb-4">
                 <InputText
                   label={"Descripcion"}
-                  name={"descripcion"}
+                  name={"description"}
                   type={"text"}
-                  placeholder={"Ingrese descripcion..."}
+                  placeholder={"Ingrese Descripcion..."}
                   register={register}
-                  errors={errors.descripcion?.message}
-                />
-              </div>
-              <div className="mb-4">
-                <InputText
-                  label={"Estatus"}
-                  name={"status"}
-                  type={"number"}
-                  placeholder={"Ingrese estatus..."}
-                  register={register}
-                  errors={errors.status?.message}
+                  errors={errors.description?.message}
                 />
               </div>
               <div className="mb-6 text-center">
@@ -98,7 +77,7 @@ function RevisionNew() {
                   className="w-full mt-3 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  Registrar Revision
+                  Registrar Marca
                 </button>
               </div>
               <hr className="mb-6 border-t" />
@@ -110,4 +89,4 @@ function RevisionNew() {
   );
 }
 
-export default RevisionNew;
+export default ComponentesNew

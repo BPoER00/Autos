@@ -19,3 +19,15 @@ export const getComponente = async () => {
 
   return res;
 };
+
+export const postComponente = async (data) => {
+  const res = await ComponenteApi.post("/", data)
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return res;
+};

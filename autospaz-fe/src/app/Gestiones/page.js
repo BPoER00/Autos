@@ -5,10 +5,11 @@ import GestionesProvider from "@/context/GestionesContext";
 function page() {
   return (
     <DefaultComponent>
-    <GestionesProvider>
-      <GestionesActions />
-    </GestionesProvider>
-  </DefaultComponent>  )
+      <GestionesProvider>
+        <GestionesActions />
+      </GestionesProvider>
+    </DefaultComponent>
+  );
 }
 
-export default page
+export default page;

@@ -19,3 +19,15 @@ export const getDetallesGastos = async () => {
 
   return res;
 };
+
+export const postDetallesGatos = async (gestiones) => {
+  const res = await DetalleGastosApi.post("/", gestiones)
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return res;
+};

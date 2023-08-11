@@ -1,7 +1,12 @@
+import MarcasAction from "./Marcas/MarcasActions";
+import MarcasProvider from "@/context/MarcasContext";
+
 function MarcasActions() {
   return (
-    <div>MarcasActions</div>
-  )
+    <MarcasProvider>
+      <MarcasAction />
+    </MarcasProvider>
+  );
 }
 
-export default MarcasActions
+export default MarcasActions;

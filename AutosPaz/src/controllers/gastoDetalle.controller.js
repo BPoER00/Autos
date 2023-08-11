@@ -3,6 +3,7 @@ import GastoDetalle from "../models/GastosDetalle";
 
 export const getGastoDetalle = async (req, res) => {
   await GastoDetalle.find()
+    .populate("auto")
     .then((data) => {
       res.status(200).json({
         data: data,
@@ -36,10 +37,10 @@ export const getGastoDetalleIdGasto = async (req, res) => {
 };
 
 export const postGastoDetalle = async (req, res) => {
-  const { gasto, descripcion, precio, status } = req.body;
+  const { auto, descripcion, precio, status } = req.body;
 
   const gastoDetalleNew = GastoDetalle({
-    gasto,
+    auto,
     descripcion,
     precio,
     status,

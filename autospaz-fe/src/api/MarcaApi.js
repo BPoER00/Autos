@@ -36,3 +36,15 @@ export const getMarcaId = async (id) => {
     return res;
   } catch (e) {}
 };
+
+export const postMarca = async (data) => {
+  const res = await MarcaApi.post("/", data)
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return res;
+};

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import CardComponentsAll from "../Contenedores/CardComponentsAll";
-import LoadingBar from "../Inputs/LoadingBar";
-import TableData from "../Globales/TableData";
-import { useGestiones } from "@/context/GestionesContext";
+import CardComponentsAll from "../../Contenedores/CardComponentsAll";
+import LoadingBar from "../../Inputs/LoadingBar";
+import TableData from "../../Globales/TableData";
 import ContenidoTabla from "./ContenidoTabla";
+import { useMarcas } from "@/context/MarcasContext";
 
-function GestionesList() {
-  const { gestion } = useGestiones();
+function MarcasList() {
+  const { marcas } = useMarcas();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -14,10 +14,11 @@ function GestionesList() {
   }, []);
 
   const info = async () => {
-    setData(await gestion());
+    setData(await marcas());
   };
 
-  const cabeceras = ["Auto", "Descripcion", "Cantidad", "Transaccion", "Opciones"];
+  console.log(data);
+  const cabeceras = ["#", "Marca", "Opciones"];
   if (data.length === 0) {
     return (
       <>
@@ -51,4 +52,4 @@ function GestionesList() {
   );
 }
 
-export default GestionesList;
+export default MarcasList;

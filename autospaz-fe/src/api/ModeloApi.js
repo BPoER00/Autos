@@ -19,3 +19,15 @@ export const getModelo = async () => {
 
   return res;
 };
+
+export const postModelo = async (data) => {
+  const res = await ModeloApi.post("/", data)
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      return error.response;
+    });
+
+  return res;
+};

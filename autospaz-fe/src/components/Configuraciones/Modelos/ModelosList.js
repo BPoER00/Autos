@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import CardComponentsAll from "../Contenedores/CardComponentsAll";
-import LoadingBar from "../Inputs/LoadingBar";
-import TableData from "../Globales/TableData";
-import { useGestiones } from "@/context/GestionesContext";
+import CardComponentsAll from "../../Contenedores/CardComponentsAll";
+import LoadingBar from "../../Inputs/LoadingBar";
+import TableData from "../../Globales/TableData";
 import ContenidoTabla from "./ContenidoTabla";
+import { useModelos } from "@/context/ModelosContext";
 
-function GestionesList() {
-  const { gestion } = useGestiones();
+function ModelosList() {
+  const { modelos } = useModelos();
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -14,10 +14,10 @@ function GestionesList() {
   }, []);
 
   const info = async () => {
-    setData(await gestion());
+    setData(await modelos());
   };
 
-  const cabeceras = ["Auto", "Descripcion", "Cantidad", "Transaccion", "Opciones"];
+  const cabeceras = ["#", "Modelos", "Opciones"];
   if (data.length === 0) {
     return (
       <>
@@ -51,4 +51,4 @@ function GestionesList() {
   );
 }
 
-export default GestionesList;
+export default ModelosList
