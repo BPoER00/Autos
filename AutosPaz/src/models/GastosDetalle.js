@@ -17,7 +17,7 @@ const gastoDetalleSchema = new Schema(
       default: false,
     },
     status: {
-      type: Number, //1 ingresos, 2 gastos
+      type: Number, //1 ingresos, 2 gastos, 3 Venta, 4 Compra
       required: true,
     },
   },

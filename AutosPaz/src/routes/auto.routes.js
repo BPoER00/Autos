@@ -4,11 +4,7 @@ import { authjwt, verifyAuto } from "../middlewares/index";
 
 const router = Router();
 
-router.get(
-  "/Dashboard",
-  [authjwt.verifyToken],
-  autoController.getAutoMarca
-);
+router.get("/Dashboard", [authjwt.verifyToken], autoController.getAutoMarca);
 
 router.get(
   "/",
@@ -35,6 +31,12 @@ router.post(
 );
 
 router.put(
+  "/venta/:id",
+  [authjwt.verifyToken, authjwt.isModerator],
+  autoController.putAutoVenta
+);
+
+router.put(
   "/:id",
   [
     authjwt.verifyToken,
@@ -44,12 +46,6 @@ router.put(
     verifyAuto.checkModeloExisted,
   ],
   autoController.putAuto
-);
-
-router.put(
-  "/:id",
-  [authjwt.verifyToken, authjwt.isAdmin],
-  autoController.putAutoBuyplaca
 );
 
 router.delete(

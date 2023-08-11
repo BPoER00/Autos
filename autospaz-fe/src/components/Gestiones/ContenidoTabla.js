@@ -13,7 +13,15 @@ function ContenidoTabla({ data }) {
             {d.precio}
           </td>
           <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
-            {d.status === 1 ? "Ingresos" : "Gastos"}
+            {d.status === 1
+              ? "Ingresos"
+              : d.status === 2
+              ? "Gastos"
+              : d.status === 3
+              ? "Venta"
+              : d.status === 4
+              ? "Compra"
+              : "Estado Desconocido"}{" "}
           </td>
           <td className="py-4 px-6 text-sm font-medium text-gray-900 whitespace-nowrap dark:text-white">
             <button

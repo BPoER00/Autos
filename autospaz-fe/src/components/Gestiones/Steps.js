@@ -9,26 +9,36 @@ function Steps() {
   useEffect(() => {
     if (paginate[0].status === "this") setStatus("List");
     if (paginate[1].status === "this") setStatus("New");
+    if (paginate[2].status === "this") setStatus("Buy");
   }, [paginate]);
 
   return (
     <div className="mx-8 shadow rounded border h-10 mt-4 flex p-1 relative items-center dark:bg-gray-800">
-      <div className="w-full flex justify-center">
+      <div className="flex justify-center w-1/3">
         <span
           className={`${
             status === "List" ? "bg-white text-gray-800" : "text-white"
-          } shadow flex items-center justify-center w-1/2 rounded-full h-8 top-[4px] absolute left-1`}
+          } shadow flex items-center justify-center w-1/3 rounded-full h-8 top-[4px] absolute`}
         >
-          <button onClick={() => changePage(1)}>Lista De Gestiones</button>
+          <button onClick={() => changePage(1)}>Lista de gestiones</button>
         </span>
       </div>
-      <div className="w-full flex justify-center">
+      <div className="flex justify-center w-1/3">
         <span
           className={` ${
             status === "New" ? "bg-white text-gray-800" : "text-white"
-          } shadow flex items-center justify-center w-1/2 rounded-full h-8 top-[4px] absolute right-1`}
+          } shadow flex items-center justify-center w-1/3 rounded-full h-8 top-[4px] absolute`}
         >
-          <button onClick={() => changePage(2)}>Agregar Gestiones</button>
+          <button onClick={() => changePage(2)}>Gestiones</button>
+        </span>
+      </div>
+      <div className="flex justify-center w-1/3">
+        <span
+          className={` ${
+            status === "Buy" ? "bg-white text-gray-800" : "text-white"
+          } shadow flex items-center justify-center w-1/3 rounded-full h-8 top-[4px] absolute`}
+        >
+          <button onClick={() => changePage(3)}>Venta del vehiculo</button>
         </span>
       </div>
     </div>

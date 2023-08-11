@@ -30,14 +30,14 @@ function InfoDashboard() {
   const ganancias = grapGastosData.map((data) => data.precio);
 
   const sumEstado1 = ganancias.reduce((acc, costo, index) => {
-    if (grapGastosData[index].status === 1) {
+    if (grapGastosData[index].status === 1 || grapGastosData[index].status === 3) {
       return acc + costo;
     }
     return acc;
   }, 0);
 
   const sumEstado2 = ganancias.reduce((acc, costo, index) => {
-    if (grapGastosData[index].status === 2) {
+    if (grapGastosData[index].status === 2 || grapGastosData[index].status === 4) {
       return acc + costo;
     }
     return acc;

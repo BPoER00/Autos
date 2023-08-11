@@ -5,6 +5,7 @@ import { useGestiones } from "@/context/GestionesContext";
 import Steps from "./Steps";
 import GestionesList from "./GestionesList";
 import GestionesNew from "./GestionesNew";
+import GestionesVentaAuto from "./GestionesVentaAuto";
 
 function GestionesActions() {
   const { paginate } = useGestiones();
@@ -17,6 +18,8 @@ function GestionesActions() {
           return <GestionesList key={page.id} />;
         } else if (page.id === 2 && page.status === "this") {
           return <GestionesNew key={page.id} />;
+        } else if (page.id === 3 && page.status === "this") {
+          return <GestionesVentaAuto key={page.id} />;
         } else {
           return null;
         }
