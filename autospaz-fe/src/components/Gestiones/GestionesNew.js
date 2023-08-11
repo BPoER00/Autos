@@ -48,7 +48,7 @@ function GestionesNew() {
             className="w-full h-auto bg-gray-400 hidden lg:block lg:w-5/12 bg-cover rounded-l-lg"
             style={{
               backgroundImage:
-                "url('https://imgs.search.brave.com/GNvxfR-D5JNgE_zP9GjGW4ywIi27ynlGC5CWlIZigb0/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9zdC5k/ZXBvc2l0cGhvdG9z/LmNvbS8xMDA3Mjgz/LzQ2MzUvaS82MDAv/ZGVwb3NpdHBob3Rv/c180NjM1NTQzNS1z/dG9jay1waG90by1y/ZXZpc2lvbi5qcGc')",
+                "url('https://www.lifeder.com/wp-content/uploads/2018/06/gestion-lupa-dinero-negocio-1024x660.jpg')",
             }}
           ></div>
           <div className="w-full lg:w-7/12 dark:bg-gray-800 p-5 rounded-lg lg:rounded-l-none">
@@ -102,7 +102,7 @@ function GestionesNew() {
                   className="w-full mt-3 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  Registrar Vision
+                  Registrar Gestion
                 </button>
               </div>
               <hr className="mb-6 border-t" />

@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState } from "react";
-import { getComponente } from "@/api/ComponentesApi";
+import { getComponente, postComponente } from "@/api/ComponentesApi";
 
 const ComponenteContext = createContext();
 
@@ -37,8 +37,10 @@ function ComponentesProvider({ children }) {
     return modelo;
   };
 
+  const insert = async (revision) => postComponente(revision);
+
   return (
-    <ComponenteContext.Provider value={{ paginate, changePage, componentes }}>
+    <ComponenteContext.Provider value={{ paginate, changePage, componentes, insert }}>
       {children}
     </ComponenteContext.Provider>
   );

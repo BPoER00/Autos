@@ -98,7 +98,7 @@ function RevisionNew() {
                   className="w-full mt-3 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
                   type="submit"
                 >
-                  Registrar Vision
+                  Registrar Revision
                 </button>
               </div>
               <hr className="mb-6 border-t" />

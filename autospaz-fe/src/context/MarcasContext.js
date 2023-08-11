@@ -1,6 +1,6 @@
 "use client";
 import { createContext, useContext, useState } from "react";
-import { getMarca } from "@/api/MarcaApi";
+import { getMarca, postMarca } from "@/api/MarcaApi";
 
 const MarcasContext = createContext();
 
@@ -38,8 +38,10 @@ function MarcasProvider({ children }) {
     return marca;
   };
 
+  const insert = async (revision) => postMarca(revision);
+
   return (
-    <MarcasContext.Provider value={{ paginate, changePage, marcas }}>
+    <MarcasContext.Provider value={{ paginate, changePage, marcas, insert }}>
       {children}
     </MarcasContext.Provider>
   );
