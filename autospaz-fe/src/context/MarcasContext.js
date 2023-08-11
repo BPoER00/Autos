@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, useState } from "react";
+import { getMarca } from "@/api/MarcaApi";
 
 const MarcasContext = createContext();
 
@@ -27,8 +28,18 @@ function MarcasProvider({ children }) {
     );
   };
 
+  const marcas = async () => {
+    const marca = await getMarca()
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => error);
+
+    return marca;
+  };
+
   return (
-    <MarcasContext.Provider value={{ paginate, changePage }}>
+    <MarcasContext.Provider value={{ paginate, changePage, marcas }}>
       {children}
     </MarcasContext.Provider>
   );

@@ -1,9 +1,9 @@
 import React from 'react'
 
-function ModelosNew() {
+function ComponentesNew() {
   return (
-    <div>Modelos New</div>
+    <div>Componentes New</div>
   )
 }
 
-export default ModelosNew
+export default ComponentesNew

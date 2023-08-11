@@ -9,7 +9,7 @@ function TableData({ children, cabecera }) {
   }
 
   return (
-    <div className="max-w-6xl mx-auto">
+    <div className="max-w-4x1 mx-auto">
       <div className="flex flex-col">
         <div className="overflow-x-auto shadow-md sm:rounded-lg">
           <div className="inline-block min-w-full align-middle">

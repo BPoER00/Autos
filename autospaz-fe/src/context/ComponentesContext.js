@@ -1,12 +1,12 @@
 "use client";
 import { createContext, useContext, useState } from "react";
+import { getComponente } from "@/api/ComponentesApi";
 
 const ComponenteContext = createContext();
 
 export const useComponentes = () => {
   const context = useContext(ComponenteContext);
-  if (!context)
-    throw new Error("useComponentes must used within a provider");
+  if (!context) throw new Error("useComponentes must used within a provider");
   return context;
 };
 
@@ -27,8 +27,18 @@ function ComponentesProvider({ children }) {
     );
   };
 
+  const componentes = async () => {
+    const modelo = await getComponente()
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => error);
+
+    return modelo;
+  };
+
   return (
-    <ComponenteContext.Provider value={{ paginate, changePage }}>
+    <ComponenteContext.Provider value={{ paginate, changePage, componentes }}>
       {children}
     </ComponenteContext.Provider>
   );

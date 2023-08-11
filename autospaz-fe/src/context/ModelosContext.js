@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useContext, useState } from "react";
+import { getModelo } from "@/api/ModeloApi";
 
 const ModelosContext = createContext();
 
@@ -27,8 +28,18 @@ function ModelosProvider({ children }) {
     );
   };
 
+  const modelos = async () => {
+    const modelo = await getModelo()
+      .then((data) => {
+        return data;
+      })
+      .catch((error) => error);
+
+    return modelo;
+  };
+
   return (
-    <ModelosContext.Provider value={{ paginate, changePage }}>
+    <ModelosContext.Provider value={{ paginate, changePage, modelos }}>
       {children}
     </ModelosContext.Provider>
   );
