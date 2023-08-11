@@ -1,7 +1,11 @@
+import ComponentesAction from "./Componentes/ComponentesAction";
+import ComponentesProvider from "@/context/ComponentesContext";
 function ComponentesActions() {
   return (
-    <div>ComponentesActions</div>
-  )
+    <ComponentesProvider>
+      <ComponentesAction />
+    </ComponentesProvider>
+  );
 }
 
-export default ComponentesActions
+export default ComponentesActions;
