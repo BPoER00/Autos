@@ -55,9 +55,13 @@ export const singIn = async (req, res) => {
   if (!matchPassword)
     return res.status(401).json({ token: null, message: "invalid password" });
 
-  const token = jwt.sign({ id: userFound._id }, config.SECRET, {
-    expiresIn: 86400,
-  });
+  const token = jwt.sign(
+    { id: userFound._id, rol: userFound.roles },
+    config.SECRET,
+    {
+      expiresIn: 86400,
+    }
+  );
 
   return res.status(200).json({
     token: token,

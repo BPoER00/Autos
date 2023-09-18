@@ -5,9 +5,17 @@ export const ValidateAuto = yup.object().shape({
   modelo: yup.string().required("Ingrese una modelo"),
 
   placa: yup.string().required("Ingrese la placa del auto"),
-  year: yup.number().typeError('Unicamente Acepta Numeros').required("Ingrese el Año del vehiculo"),
-  price: yup.number().typeError('Unicamente Acepta Numeros').required("Ingrese el Costo del vehiculo"),
-
+  year: yup
+    .number()
+    .typeError("Unicamente Acepta Numeros")
+    .required("Ingrese el Año del vehiculo")
+    .min(1886, "El año debe ser mayor a 1886")
+    .max(2023, "El año debe ser menor a 2023"),
+  price: yup
+    .number()
+    .typeError("Unicamente Acepta Numeros")
+    .required("Ingrese el Costo del vehiculo")
+    .min(0, "El costo no puede ser negativo"),
 });
 
 export const ValidateVentaAuto = yup.object().shape({
@@ -16,7 +24,6 @@ export const ValidateVentaAuto = yup.object().shape({
   precio: yup
     .number()
     .typeError("Unicamente Acepta Numeros")
-    .required("Ingrese el precio para la venta"),
-
+    .required("Ingrese el precio para la venta")
+    .min(0, "El costo no puede ser negativo"),
 });
-

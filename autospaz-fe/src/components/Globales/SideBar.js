@@ -32,6 +32,7 @@ function SideBar() {
   const isAuto = url.includes("/Auto");
   const isRevisiones = url.includes("/Revisiones");
   const isGestiones = url.includes("/Gestiones");
+  const isUsuarios = url.includes("/Usuarios");
   const isConfiguraciones = url.includes("/Configuraciones");
 
   return (
@@ -147,18 +148,32 @@ function SideBar() {
                 </ComponentSidebarRedirect>
               </button>
 
-              {/* <button onClick={() => router.push("/Usuarios")}>
-            <ComponentSidebarRedirect>
-              <div className="flex items-center justify-between">
-                <span className="inline-flex justify-center items-center mr-1">
-                  <UserIcon className="h-7 w-7" />
-                </span>
-                <span className="ml-2 text-sm tracking-wide truncate">
-                  Usuarios
-                </span>
-              </div>
-            </ComponentSidebarRedirect>
-          </button> */}
+              <button
+                onClick={() => {
+                  router.push("/Usuarios");
+                  setLoading(true);
+                }}
+                disabled={isUsuarios}
+              >
+                <ComponentSidebarRedirect>
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`inline-flex justify-center items-center mr-1 ${
+                        isUsuarios ? "text-gray-600" : ""
+                      }`}
+                    >
+                      <UserIcon className="h-7 w-7" />
+                    </span>
+                    <span
+                      className={`ml-2 text-sm tracking-wide truncate ${
+                        isUsuarios ? "text-gray-600" : ""
+                      }`}
+                    >
+                      Usuarios
+                    </span>
+                  </div>
+                </ComponentSidebarRedirect>
+              </button>
 
               <button
                 onClick={() => {
