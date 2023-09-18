@@ -1,3 +1,4 @@
+import { model } from "mongoose";
 import Modelo from "../models/Modelo";
 
 export const getModelo = async (req, res) => {
@@ -35,12 +36,13 @@ export const getModeloId = async (req, res) => {
 };
 
 export const postModelo = async (req, res) => {
-  const { name } = req.body;
-
+  const { name, marca } = req.body;
   const modeloNew = Modelo({
     name,
+    marca,
   });
 
+  console.log(marca);
   await modeloNew
     .save()
     .then((data) => {
@@ -73,4 +75,3 @@ export const putModelo = async (req, res) => {
       });
     });
 };
-

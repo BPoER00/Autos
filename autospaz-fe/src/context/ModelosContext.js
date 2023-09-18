@@ -1,13 +1,13 @@
 "use client";
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { getMarca } from "@/api/MarcaApi";
 import { getModelo, postModelo } from "@/api/ModeloApi";
 
 const ModelosContext = createContext();
 
 export const useModelos = () => {
   const context = useContext(ModelosContext);
-  if (!context)
-    throw new Error("useModelos must used within a provider");
+  if (!context) throw new Error("useModelos must used within a provider");
   return context;
 };
 
@@ -18,6 +18,7 @@ function ModelosProvider({ children }) {
   ];
 
   const [paginate, setPaginate] = useState(defaultPaginate);
+  const [marca, setMarca] = useState();
 
   const changePage = (id) => {
     setPaginate((prevPaginate) =>
@@ -27,6 +28,12 @@ function ModelosProvider({ children }) {
       }))
     );
   };
+
+  useEffect(() => {
+    getMarca().then((data) =>
+      setMarca(data.map((m) => ({ value: m._id, label: m.name })))
+    );
+  }, []);
 
   const modelos = async () => {
     const modelo = await getModelo()
@@ -41,7 +48,7 @@ function ModelosProvider({ children }) {
   const insert = async (revision) => postModelo(revision);
 
   return (
-    <ModelosContext.Provider value={{ paginate, changePage, modelos, insert }}>
+    <ModelosContext.Provider value={{ marca, paginate, changePage, modelos, insert }}>
       {children}
     </ModelosContext.Provider>
   );

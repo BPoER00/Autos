@@ -25,8 +25,6 @@ export async function middleware(request) {
     }
 
     const isAdmin = payload.rol.some((role) => role.name === "admin");
-
-    console.log(!isAdmin && request.nextUrl.pathname === "/Usuarios");
     
     if (!isAdmin && request.nextUrl.pathname === "/Usuarios") {
       return NextResponse.redirect(new URL("/Permisos", request.url));
