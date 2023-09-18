@@ -2,14 +2,14 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 export async function middleware(request) {
-  const jwt = request.cookies.get("tokenResAPIAutos");
+  const jwt = request.cookies.get("pgDataAutosCookie");
 
   if (!jwt) return NextResponse.redirect(new URL("/Login", request.url));
-
+  
   try {
     const { payload } = await jwtVerify(
       jwt.value,
-      new TextEncoder().encode("autos_api_data")
+      new TextEncoder().encode("pgDataAutos")
     );
 
     return NextResponse.next();
@@ -19,5 +19,13 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/Autos", "/Configuraciones", "/Dashboard", "/Gestiones", "/Revisiones", "/Usuarios", "/Logout"],
+  matcher: [
+    "/Autos",
+    "/Configuraciones",
+    "/Dashboard",
+    "/Gestiones",
+    "/Revisiones",
+    "/Usuarios",
+    "/Logout",
+  ],
 };
