@@ -8,9 +8,13 @@ import "react-toastify/dist/ReactToastify.css";
 import { useAuto } from "@/context/AutoContext";
 import InputText from "../Inputs/InputText";
 import InputSelect from "../Inputs/InputSelect";
+import InputSelectChange from "../Inputs/InputSelectChange";
+import { useEffect, useState } from "react";
 
 function page() {
-  const { marca, modelo, insert, changePage } = useAuto();
+  const { getId, marca, modelo, insert, changePage } = useAuto();
+  const [ids, setId] = useState();
+  // const [modelos, setModel] = useState({});
 
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -35,6 +39,15 @@ function page() {
       toast.warning(`Error ${res.data.message}`);
     }
   };
+
+  useEffect(() => {
+    const logId = async (id) => {
+      if (id && id.length > 0) {
+        await getId(id);
+      }
+    };
+    logId(ids);
+  }, [ids]);
 
   return (
     <div className="container mx-auto">
@@ -77,11 +90,12 @@ function page() {
                 </div>
               </div>
               <div className="mb-4">
-                <InputSelect
+                <InputSelectChange
                   label={"Marca"}
                   name={"marca"}
                   options={marca}
                   control={control}
+                  setId={setId}
                   placeholder={"Ingrese Marca..."}
                   errors={errors.marca?.message}
                 />

@@ -1,7 +1,7 @@
 "use client";
 import { createContext, useContext, useState, useEffect } from "react";
 import { getMarca, getMarcaId } from "@/api/MarcaApi";
-import { getModelo } from "@/api/ModeloApi";
+import { getModeloId } from "@/api/ModeloApi";
 import { getAuto, postAuto } from "@/api/AutoApi";
 
 const AutoContext = createContext();
@@ -20,7 +20,7 @@ function AutoProvider({ children }) {
 
   const [paginate, setPaginate] = useState(defaultPaginate);
   const [marca, setMarca] = useState();
-  const [modelo, setModelo] = useState();
+  const [modelo, setModelo] = useState([]);
 
   const auto = async () => {
     const auto = await getAuto()
@@ -34,14 +34,17 @@ function AutoProvider({ children }) {
 
   useEffect(() => {
     getMarca().then((data) =>
-      setMarca(data.map((m) => ({ value: m.name, label: m.name })))
-    );
-    getModelo().then((data) =>
-      setModelo(data.map((m) => ({ value: m.name, label: m.name })))
+      setMarca(data.map((m) => ({ value: m._id, label: m.name })))
     );
   }, []);
 
   const insert = async (credentials) => postAuto(credentials);
+
+  const getId = async (id) => {
+    getModeloId(id).then((data) =>
+      setModelo(data.map((m) => ({ value: m.name, label: m.name })))
+    );
+  };
 
   const changePage = (id) => {
     setPaginate((prevPaginate) =>
@@ -54,7 +57,7 @@ function AutoProvider({ children }) {
 
   return (
     <AutoContext.Provider
-      value={{ paginate, changePage, marca, modelo, insert, auto }}
+      value={{ paginate, changePage, marca, modelo, insert, auto, getId }}
     >
       {children}
     </AutoContext.Provider>

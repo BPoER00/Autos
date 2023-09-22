@@ -20,6 +20,16 @@ export const getModelo = async () => {
   return res;
 };
 
+export const getModeloId = async (id) => {
+  const res = await ModeloApi.get(`/${id}`)
+    .then((data) => {
+      return data.data.data;
+    })
+    .catch((error) => error.response);
+
+  return res;
+};
+
 export const postModelo = async (data) => {
   const res = await ModeloApi.post("/", data)
     .then((data) => {

@@ -1,5 +1,5 @@
-import { model } from "mongoose";
 import Modelo from "../models/Modelo";
+import { ObjectId } from "mongoose";
 
 export const getModelo = async (req, res) => {
   await Modelo.find()
@@ -20,7 +20,7 @@ export const getModelo = async (req, res) => {
 export const getModeloId = async (req, res) => {
   const { id } = req.params;
 
-  await Modelo.find({ _id: id })
+  await Modelo.find({ marca: id })
     .then((data) => {
       res.status(200).json({
         data: data,
