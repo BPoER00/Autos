@@ -8,7 +8,7 @@ export const ValidateGestiones = yup.object().shape({
     .number()
     .typeError("Unicamente Acepta Numeros")
     .required("Ingrese el precio de la gestion")
-    .min(0, "El costo no puede ser negativo"),
+    .min(1, "El costo no puede ser negativo o cero"),
   status: yup
     .number()
     .typeError("Unicamente Acepta Numeros")

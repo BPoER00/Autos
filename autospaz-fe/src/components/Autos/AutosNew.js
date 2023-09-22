@@ -12,7 +12,7 @@ import InputSelectChange from "../Inputs/InputSelectChange";
 import { useEffect, useState } from "react";
 
 function page() {
-  const { getId, marca, modelo, insert, changePage } = useAuto();
+  const { TIPO_PLACA, getId, marca, modelo, insert, changePage } = useAuto();
   const [ids, setId] = useState();
   // const [modelos, setModel] = useState({});
 
@@ -35,7 +35,7 @@ function page() {
       toast.success("Auto Guardado Correctamente");
       await sleep(3000);
       changePage(1);
-    } else if (res.status === 400 || res.status === 401) {
+    } else if (res.status >= 400) {
       toast.warning(`Error ${res.data.message}`);
     }
   };
@@ -67,28 +67,27 @@ function page() {
               onSubmit={handleSubmit(onSubmit)}
               className="px-8 pt-6 pb-8 mb-4 dark:bg-gray-900 rounded"
             >
-              <div className="mb-4 md:flex md:justify-between">
-                <div className="mb-4 md:mr-2 md:mb-0">
-                  <InputText
-                    label={"Placa"}
-                    name={"placa"}
-                    type={"text"}
-                    placeholder={"Ingrese Placa..."}
-                    register={register}
-                    errors={errors.placa?.message}
-                  />
-                </div>
-                <div className="md:ml-2">
-                  <InputText
-                    label={"Año"}
-                    name={"year"}
-                    type={"number"}
-                    placeholder={"Ingrese Año..."}
-                    register={register}
-                    errors={errors.year?.message}
-                  />
-                </div>
+              <div className="mb-4">
+                <InputSelect
+                  label={"Tipo Placa"}
+                  name={"tipoPlaca"}
+                  options={TIPO_PLACA}
+                  control={control}
+                  placeholder={"Ingrese Tipo Placa..."}
+                  errors={errors.tipoPlaca?.message}
+                />
               </div>
+              <div className="mb-4">
+                <InputText
+                  label={"Placa"}
+                  name={"placa"}
+                  type={"text"}
+                  placeholder={"Ingrese Placa..."}
+                  register={register}
+                  errors={errors.placa?.message}
+                />
+              </div>
+
               <div className="mb-4">
                 <InputSelectChange
                   label={"Marca"}
@@ -118,6 +117,16 @@ function page() {
                   placeholder={"Ingrese Costo..."}
                   register={register}
                   errors={errors.costo?.message}
+                />
+              </div>
+              <div className="mb-4">
+                <InputText
+                  label={"Año"}
+                  name={"year"}
+                  type={"number"}
+                  placeholder={"Ingrese Año..."}
+                  register={register}
+                  errors={errors.year?.message}
                 />
               </div>
               {/* <div className="mb-4">

@@ -8,24 +8,23 @@ function InputSelect({ label, name, options, control, errors, ...rest }) {
   } = useController({
     name,
     control,
-    rules: { required: "This field is required" }, // Puedes agregar más reglas de validación aquí si es necesario
-    defaultValue: "", // Valor inicial del campo
+    rules: { required: "This field is required" },
+    defaultValue: "",
   });
 
-  // Validar si options está vacío
   const selectedOption =
     options && options.length > 0
       ? options.find((option) => option.value === value)
       : null;
 
   return (
-    <>
+    <div className="mb-4">
       <label className="font-semibold leading-none text-gray-300">
         {label}
       </label>
       <Select
         placeholder="Search Here..."
-        className="text-black placeholder-gray-600 w-full py-2.5 mt-2 text-base   transition duration-500 2 ring-gray-400"
+        className="text-black placeholder-gray-600 w-full py-2.5 mt-2 text-base transition duration-500 2 ring-gray-400"
         options={options}
         value={selectedOption}
         onChange={(selectedOption) => onChange(selectedOption.value)}
@@ -34,7 +33,7 @@ function InputSelect({ label, name, options, control, errors, ...rest }) {
         {...rest}
       />
       <span className="text-red-500 text-center">{errors}</span>
-    </>
+    </div>
   );
 }
 

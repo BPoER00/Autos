@@ -1,6 +1,7 @@
 import Auto from "../models/Auto";
 import Marca from "../models/Marca";
 import Modelo from "../models/Modelo";
+import { TIPO_PLACA } from "../constants/tipo-placa";
 
 export const checkDuplicatePlacaAuto = async (req, res, next) => {
   const auto = await Auto.findOne({ placa: req.body.placa });
@@ -23,7 +24,7 @@ export const checkMarcaExisted = async (req, res, next) => {
     const marcaObtenidos = req.body.marca;
     const validation = [];
 
-    const resultado = await Marca.findOne({ name: marcaObtenidos });
+    const resultado = await Marca.findOne({ _id: marcaObtenidos });
     if (resultado === null) {
       validation.push(`Marca ${marcaObtenidos[i]} no existe`);
     }
@@ -44,6 +45,24 @@ export const checkModeloExisted = async (req, res, next) => {
     const resultado = await Modelo.findOne({ name: modeloObtenidos });
       if (resultado === null) {
         validation.push(`Modelo ${modeloObtenidos[i]} no existe`);
+      }
+
+    if (validation.length > 0) {
+      return res.status(400).json({ message: validation });
+    }
+  }
+
+  next();
+};
+
+export const checkTipoPlacaExisted = async (req, res, next) => {
+  if (req.body.tipoPlaca) {
+    const tipoPlacaObtenidos = req.body.tipoPlaca;
+    const validation = [];
+
+    const resultado = await TIPO_PLACA.findOne({ name: tipoPlacaObtenidos });
+      if (resultado === null) {
+        validation.push(`Tipo Placa ${tipoPlacaObtenidos[i]} no existe`);
       }
 
     if (validation.length > 0) {
