@@ -6,6 +6,12 @@ const modeloSchema = new Schema(
       type: String,
       required: true,
     },
+    marca: [
+      {
+        ref: "Marca",
+        type: Schema.Types.ObjectId,
+      },
+    ],
   },
   {
     versionKey: false,

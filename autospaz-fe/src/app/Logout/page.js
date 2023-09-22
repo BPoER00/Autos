@@ -8,7 +8,7 @@ function page() {
   const router = useRouter();
   useEffect(() => {
     deleteCookie();
-    router.refresh();
+    router.push("/Login");
   }, []);
   return <ProgresBar />;
 }

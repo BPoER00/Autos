@@ -8,5 +8,7 @@ export const ValidateRevision = yup.object().shape({
   status: yup
     .number()
     .typeError("Unicamente Acepta Numeros")
-    .required("Ingrese el Status del componente"),
+    .required("Ingrese el Status del componente")
+    .min(0, "El número debe ser igual o mayor que 0")
+    .max(10, "El número debe ser igual o menor que 10"),
 });

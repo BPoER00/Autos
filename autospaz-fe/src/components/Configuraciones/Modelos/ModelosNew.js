@@ -6,9 +6,10 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useModelos } from "@/context/ModelosContext";
 import InputText from "../../Inputs/InputText";
+import InputSelect from "@/components/Inputs/InputSelect";
 
 function ModelosNew() {
-  const { insert, changePage } = useModelos();
+  const { marca, insert, changePage } = useModelos();
 
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
@@ -18,11 +19,13 @@ function ModelosNew() {
     register,
     handleSubmit,
     formState: { errors },
+    control,
   } = useForm({
     resolver: yupResolver(ValidateModelos),
   });
 
   const onSubmit = async (e) => {
+    console.log(e);
     const res = await insert(e);
     if (res.status === 201) {
       toast.success("Revision Realizada Correctamente");
@@ -61,6 +64,17 @@ function ModelosNew() {
                   errors={errors.name?.message}
                 />
               </div>
+              <div className="mb-4">
+                <InputSelect
+                  label={"Marca"}
+                  name={"marca"}
+                  options={marca}
+                  control={control}
+                  placeholder={"Ingrese Marca..."}
+                  errors={errors.marca?.message}
+                />
+              </div>
+
               <div className="mb-6 text-center">
                 <button
                   className="w-full mt-3 px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline"
@@ -78,4 +92,4 @@ function ModelosNew() {
   );
 }
 
-export default ModelosNew
+export default ModelosNew;
