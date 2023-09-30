@@ -1,7 +1,6 @@
 import Auto from "../models/Auto";
 import Marca from "../models/Marca";
 import Modelo from "../models/Modelo";
-import Gasto from "../models/Gasto";
 import GastosDetalle from "../models/GastosDetalle";
 
 export const getAuto = async (req, res) => {

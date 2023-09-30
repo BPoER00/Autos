@@ -23,6 +23,7 @@ router.post(
   [
     authjwt.verifyToken,
     authjwt.isModerator,
+    verifyAuto.checkTipoPlacaExisted,
     verifyAuto.checkDuplicatePlacaAuto,
     verifyAuto.checkMarcaExisted,
     verifyAuto.checkModeloExisted,
@@ -32,7 +33,7 @@ router.post(
 
 router.put(
   "/venta/:id",
-  [authjwt.verifyToken, authjwt.isModerator],
+  [authjwt.verifyToken, authjwt.isModerator, verifyAuto.checkVentaExisted],
   autoController.putAutoVenta
 );
 
@@ -44,6 +45,7 @@ router.put(
     verifyAuto.checkDuplicatePlacaAuto,
     verifyAuto.checkMarcaExisted,
     verifyAuto.checkModeloExisted,
+    verifyAuto.checkTipoPlacaExisted,
   ],
   autoController.putAuto
 );
