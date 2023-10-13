@@ -1,18 +1,26 @@
 export const TIPO_PLACA = [
   {
     value: "P",
-    label: "P",
+    name: "P",
   },
   {
-    value: "M",
-    label: "M",
+    value: "A",
+    name: "A",
   },
   {
     value: "C",
-    label: "C",
+    name: "C",
   },
   {
-    value: "O",
-    label: "O",
+    value: "U",
+    name: "U",
+  },
+  {
+    value: "M",
+    name: "M",
+  },
+  {
+    value: "TCR",
+    name: "TCR",
   },
 ];

@@ -1,0 +1,35 @@
+@api = http://192.168.1.66:3000/api
+
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MDhkOWNiZTU4ZjIwYjQzMTFjYjJjMyIsInJvbCI6W3siX2lkIjoiNjUwOGQ5YzVkMTg2NmEwYzFhNDkyYWNmIiwibmFtZSI6InVzZXIiLCJzdGF0dXMiOnRydWV9LHsiX2lkIjoiNjUwOGQ5YzVkMTg2NmEwYzFhNDkyYWQwIiwibmFtZSI6Im1vZGVyYXRvciIsInN0YXR1cyI6dHJ1ZX0seyJfaWQiOiI2NTA4ZDljNWQxODY2YTBjMWE0OTJhZDEiLCJuYW1lIjoiYWRtaW4iLCJzdGF0dXMiOnRydWV9XSwiaWF0IjoxNjk2NzA5NTA0LCJleHAiOjE2OTY3OTU5MDR9.5bx5ZJeWS-uB8ufgAvuQ-NnCKoTXAV9UdSgaXFdwJ40
+
+### login
+POST {{api}}/auth/signin
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "password" : "admin"
+}
+
+
+###pruebas autos
+### get de autos
+GET {{api}}/auto
+Content-Type: application/json
+x-access-token: {{token}}
+
+### post auto
+POST {{api}}/auto
+Content-Type: application/json
+x-access-token: {{token}}
+
+{
+    "tipoPlaca" : "",
+    "marca" : "",
+    "modelo" : "",
+    "placa" : "",
+    "year" : "",
+    "price" : ""
+}
+
+### put venta auto
