@@ -3,8 +3,15 @@ import * as yup from "yup";
 export const ValidateAuto = yup.object().shape({
   marca: yup.string().required("Ingrese una marca"),
   modelo: yup.string().required("Ingrese una modelo"),
-
-  placa: yup.string().required("Ingrese la placa del auto"),
+  tipoPlaca: yup.string().required("Ingrese un tipo de placa"),
+  
+  placa: yup
+    .string()
+    .matches(
+      /^[0-9]{3}[A-Z]{3}$/,
+      "La placa debe tener 3 números seguidos de 3 letras mayúsculas"
+    )
+    .required("Ingrese la placa del auto"),
   year: yup
     .number()
     .typeError("Unicamente Acepta Numeros")
@@ -15,7 +22,7 @@ export const ValidateAuto = yup.object().shape({
     .number()
     .typeError("Unicamente Acepta Numeros")
     .required("Ingrese el Costo del vehiculo")
-    .min(0, "El costo no puede ser negativo"),
+    .min(1, "El costo no puede ser negativo o cero"),
 });
 
 export const ValidateVentaAuto = yup.object().shape({
@@ -25,5 +32,5 @@ export const ValidateVentaAuto = yup.object().shape({
     .number()
     .typeError("Unicamente Acepta Numeros")
     .required("Ingrese el precio para la venta")
-    .min(0, "El costo no puede ser negativo"),
+    .min(1, "El costo no puede ser negativo o cero"),
 });

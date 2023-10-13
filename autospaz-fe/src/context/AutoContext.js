@@ -3,6 +3,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import { getMarca, getMarcaId } from "@/api/MarcaApi";
 import { getModeloId } from "@/api/ModeloApi";
 import { getAuto, postAuto } from "@/api/AutoApi";
+import { TIPO_PLACA } from "@/constants/tipo-placa";
 
 const AutoContext = createContext();
 
@@ -57,7 +58,7 @@ function AutoProvider({ children }) {
 
   return (
     <AutoContext.Provider
-      value={{ paginate, changePage, marca, modelo, insert, auto, getId }}
+      value={{ TIPO_PLACA, paginate, changePage, marca, modelo, insert, auto, getId }}
     >
       {children}
     </AutoContext.Provider>

@@ -1,7 +1,6 @@
 import Auto from "../models/Auto";
 import Marca from "../models/Marca";
 import Modelo from "../models/Modelo";
-import Gasto from "../models/Gasto";
 import GastosDetalle from "../models/GastosDetalle";
 
 export const getAuto = async (req, res) => {
@@ -81,10 +80,13 @@ export const getAutoMarca = async (req, res) => {
 };
 
 export const postAuto = async (req, res) => {
-  const { marca, modelo, placa, year, price } = req.body;
+  const { tipoPlaca, marca, modelo, placa, year, price } = req.body;
+
+  const placaCompleta = `${tipoPlaca}${placa}`;
 
   const autoNew = Auto({
-    placa,
+    marca,
+    placa: placaCompleta,
     year,
   });
 
@@ -93,11 +95,6 @@ export const postAuto = async (req, res) => {
     precio: price,
     status: 4,
   });
-
-  if (marca) {
-    const marcaFound = await Marca.findOne({ name: { $in: marca } });
-    autoNew.marca = marcaFound._id;
-  }
 
   if (modelo) {
     const modeloFound = await Modelo.findOne({ name: { $in: modelo } });
