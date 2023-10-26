@@ -148,7 +148,7 @@ function SideBar() {
                 </ComponentSidebarRedirect>
               </button>
 
-              <button
+              {/* <button
                 onClick={() => {
                   router.push("/Usuarios");
                   setLoading(true);
@@ -173,7 +173,7 @@ function SideBar() {
                     </span>
                   </div>
                 </ComponentSidebarRedirect>
-              </button>
+              </button> */}
 
               <button
                 onClick={() => {
